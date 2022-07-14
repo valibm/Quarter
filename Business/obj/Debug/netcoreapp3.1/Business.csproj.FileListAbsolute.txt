@@ -1,0 +1,13 @@
+C:\Users\valibm\source\repos\Quarter\Business\bin\Debug\netcoreapp3.1\Business.deps.json
+C:\Users\valibm\source\repos\Quarter\Business\bin\Debug\netcoreapp3.1\Business.dll
+C:\Users\valibm\source\repos\Quarter\Business\bin\Debug\netcoreapp3.1\Business.pdb
+C:\Users\valibm\source\repos\Quarter\Business\bin\Debug\netcoreapp3.1\DAL.dll
+C:\Users\valibm\source\repos\Quarter\Business\bin\Debug\netcoreapp3.1\DAL.pdb
+C:\Users\valibm\source\repos\Quarter\Business\obj\Debug\netcoreapp3.1\Business.csproj.AssemblyReference.cache
+C:\Users\valibm\source\repos\Quarter\Business\obj\Debug\netcoreapp3.1\Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\valibm\source\repos\Quarter\Business\obj\Debug\netcoreapp3.1\Business.AssemblyInfoInputs.cache
+C:\Users\valibm\source\repos\Quarter\Business\obj\Debug\netcoreapp3.1\Business.AssemblyInfo.cs
+C:\Users\valibm\source\repos\Quarter\Business\obj\Debug\netcoreapp3.1\Business.csproj.CoreCompileInputs.cache
+C:\Users\valibm\source\repos\Quarter\Business\obj\Debug\netcoreapp3.1\Business.csproj.CopyComplete
+C:\Users\valibm\source\repos\Quarter\Business\obj\Debug\netcoreapp3.1\Business.dll
+C:\Users\valibm\source\repos\Quarter\Business\obj\Debug\netcoreapp3.1\Business.pdb
