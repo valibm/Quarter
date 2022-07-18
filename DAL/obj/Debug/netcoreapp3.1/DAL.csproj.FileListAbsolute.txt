@@ -8,3 +8,13 @@ C:\Users\valibm\source\repos\Quarter\DAL\obj\Debug\netcoreapp3.1\DAL.AssemblyInf
 C:\Users\valibm\source\repos\Quarter\DAL\obj\Debug\netcoreapp3.1\DAL.csproj.CoreCompileInputs.cache
 C:\Users\valibm\source\repos\Quarter\DAL\obj\Debug\netcoreapp3.1\DAL.dll
 C:\Users\valibm\source\repos\Quarter\DAL\obj\Debug\netcoreapp3.1\DAL.pdb
+C:\Users\Help\Desktop\Code\Quarter\DAL\bin\Debug\netcoreapp3.1\DAL.deps.json
+C:\Users\Help\Desktop\Code\Quarter\DAL\bin\Debug\netcoreapp3.1\DAL.dll
+C:\Users\Help\Desktop\Code\Quarter\DAL\bin\Debug\netcoreapp3.1\DAL.pdb
+C:\Users\Help\Desktop\Code\Quarter\DAL\obj\Debug\netcoreapp3.1\DAL.csproj.AssemblyReference.cache
+C:\Users\Help\Desktop\Code\Quarter\DAL\obj\Debug\netcoreapp3.1\DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Help\Desktop\Code\Quarter\DAL\obj\Debug\netcoreapp3.1\DAL.AssemblyInfoInputs.cache
+C:\Users\Help\Desktop\Code\Quarter\DAL\obj\Debug\netcoreapp3.1\DAL.AssemblyInfo.cs
+C:\Users\Help\Desktop\Code\Quarter\DAL\obj\Debug\netcoreapp3.1\DAL.csproj.CoreCompileInputs.cache
+C:\Users\Help\Desktop\Code\Quarter\DAL\obj\Debug\netcoreapp3.1\DAL.dll
+C:\Users\Help\Desktop\Code\Quarter\DAL\obj\Debug\netcoreapp3.1\DAL.pdb

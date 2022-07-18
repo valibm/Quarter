@@ -31,10 +31,13 @@
     ".NETCoreApp,Version=v3.1": {
       "Quarter/1.0.0": {
         "dependencies": {
+          "Business": "1.0.0",
           "DAL": "1.0.0",
+          "Exceptions": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.27",
           "Microsoft.EntityFrameworkCore": "3.1.27",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.27",
+          "Microsoft.EntityFrameworkCore.Tools": "3.1.27",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -396,7 +399,7 @@
           "ref/netcoreapp2.1/Microsoft.Bcl.HashCode.dll": {}
         }
       },
-      "Microsoft.CSharp/4.5.0": {},
+      "Microsoft.CSharp/4.7.0": {},
       "Microsoft.Data.SqlClient/1.1.3": {
         "dependencies": {
           "Microsoft.Identity.Client": "3.0.8",
@@ -468,6 +471,18 @@
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/3.1.27": {},
+      "Microsoft.EntityFrameworkCore.Design/3.1.27": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "Microsoft.EntityFrameworkCore.Relational": "3.1.27"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.dll": {
+            "assemblyVersion": "3.1.27.0",
+            "fileVersion": "3.100.2722.31603"
+          }
+        }
+      },
       "Microsoft.EntityFrameworkCore.Relational/3.1.27": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "3.1.27"
@@ -495,6 +510,11 @@
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.SqlServer.dll": {}
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Tools/3.1.27": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Design": "3.1.27"
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/3.1.27": {
@@ -684,7 +704,7 @@
       },
       "Microsoft.Identity.Client/3.0.8": {
         "dependencies": {
-          "Microsoft.CSharp": "4.5.0",
+          "Microsoft.CSharp": "4.7.0",
           "System.ComponentModel.TypeConverter": "4.3.0",
           "System.Net.NameResolution": "4.3.0",
           "System.Runtime.Serialization.Formatters": "4.3.0",
@@ -789,7 +809,7 @@
       },
       "Newtonsoft.Json/10.0.1": {
         "dependencies": {
-          "Microsoft.CSharp": "4.5.0",
+          "Microsoft.CSharp": "4.7.0",
           "System.Collections": "4.3.0",
           "System.ComponentModel.TypeConverter": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
@@ -925,11 +945,7 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.ComponentModel.Annotations/4.7.0": {
-        "compile": {
-          "ref/netstandard2.1/System.ComponentModel.Annotations.dll": {}
-        }
-      },
+      "System.ComponentModel.Annotations/4.7.0": {},
       "System.ComponentModel.Primitives/4.3.0": {
         "dependencies": {
           "System.ComponentModel": "4.3.0",
@@ -1494,6 +1510,18 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
+      "Business/1.0.0": {
+        "dependencies": {
+          "DAL": "1.0.0",
+          "Exceptions": "1.0.0"
+        },
+        "runtime": {
+          "Business.dll": {}
+        },
+        "compile": {
+          "Business.dll": {}
+        }
+      },
       "DAL/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http": "2.2.2",
@@ -1506,6 +1534,14 @@
         },
         "compile": {
           "DAL.dll": {}
+        }
+      },
+      "Exceptions/1.0.0": {
+        "runtime": {
+          "Exceptions.dll": {}
+        },
+        "compile": {
+          "Exceptions.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -3169,12 +3205,12 @@
       "path": "microsoft.bcl.hashcode/1.1.1",
       "hashPath": "microsoft.bcl.hashcode.1.1.1.nupkg.sha512"
     },
-    "Microsoft.CSharp/4.5.0": {
+    "Microsoft.CSharp/4.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
-      "path": "microsoft.csharp/4.5.0",
-      "hashPath": "microsoft.csharp.4.5.0.nupkg.sha512"
+      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
+      "path": "microsoft.csharp/4.7.0",
+      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
     },
     "Microsoft.Data.SqlClient/1.1.3": {
       "type": "package",
@@ -3204,6 +3240,13 @@
       "path": "microsoft.entityframeworkcore.analyzers/3.1.27",
       "hashPath": "microsoft.entityframeworkcore.analyzers.3.1.27.nupkg.sha512"
     },
+    "Microsoft.EntityFrameworkCore.Design/3.1.27": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NS3yY67kiB5P+ofQ91A2GaCkUBOKFLQ6dTQ8Vbk4VWlVue5TyAJqh6dON6mYzMOypXbgiOVCDbg8Ut0bXlpEMA==",
+      "path": "microsoft.entityframeworkcore.design/3.1.27",
+      "hashPath": "microsoft.entityframeworkcore.design.3.1.27.nupkg.sha512"
+    },
     "Microsoft.EntityFrameworkCore.Relational/3.1.27": {
       "type": "package",
       "serviceable": true,
@@ -3217,6 +3260,13 @@
       "sha512": "sha512-lDFPhqNI7DNBGDWXb4AYIkCjKEgX9pYP7dL3Kaxmrk5m0Bf7K6aMt224ZiaCFI233DZTHwG7RHqajfD7D375LQ==",
       "path": "microsoft.entityframeworkcore.sqlserver/3.1.27",
       "hashPath": "microsoft.entityframeworkcore.sqlserver.3.1.27.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Tools/3.1.27": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+bA8qZNj5EngRc2QCU7RXgF0DBOLvGW5MUwy93OQeeVazRcY4q0CoDIXBGhrr6rCTjaoLEMwuBiQZtV825d3nQ==",
+      "path": "microsoft.entityframeworkcore.tools/3.1.27",
+      "hashPath": "microsoft.entityframeworkcore.tools.3.1.27.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/3.1.27": {
       "type": "package",
@@ -3883,7 +3933,17 @@
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
+    "Business/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "DAL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Exceptions/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

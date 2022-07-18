@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\valibm\\source\\repos\\Quarter\\DAL\\DAL.csproj": {}
+    "C:\\Users\\Help\\Desktop\\Code\\Quarter\\DAL\\DAL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\valibm\\source\\repos\\Quarter\\DAL\\DAL.csproj": {
+    "C:\\Users\\Help\\Desktop\\Code\\Quarter\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\valibm\\source\\repos\\Quarter\\DAL\\DAL.csproj",
+        "projectUniqueName": "C:\\Users\\Help\\Desktop\\Code\\Quarter\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "C:\\Users\\valibm\\source\\repos\\Quarter\\DAL\\DAL.csproj",
-        "packagesPath": "C:\\Users\\valibm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\valibm\\source\\repos\\Quarter\\DAL\\obj\\",
+        "projectPath": "C:\\Users\\Help\\Desktop\\Code\\Quarter\\DAL\\DAL.csproj",
+        "packagesPath": "C:\\Users\\Help\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Help\\Desktop\\Code\\Quarter\\DAL\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\valibm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Help\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -72,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

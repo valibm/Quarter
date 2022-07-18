@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DAL.Data;
 using Microsoft.EntityFrameworkCore;
+using Business.Services;
+using Business.Repositories;
 
 namespace Quarter
 {
@@ -25,6 +27,9 @@ namespace Quarter
             {
                 options.UseSqlServer(_config.GetConnectionString("Default"));
             });
+
+            services.AddScoped<ISliderService, SliderRepository>();
+            services.AddScoped<IImageService, ImageRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
