@@ -38,6 +38,7 @@
           "Microsoft.EntityFrameworkCore": "3.1.27",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.27",
           "Microsoft.EntityFrameworkCore.Tools": "3.1.27",
+          "Utilities": "1.0.0",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -1542,6 +1543,14 @@
         },
         "compile": {
           "Exceptions.dll": {}
+        }
+      },
+      "Utilities/1.0.0": {
+        "runtime": {
+          "Utilities.dll": {}
+        },
+        "compile": {
+          "Utilities.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -3944,6 +3953,11 @@
       "sha512": ""
     },
     "Exceptions/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Utilities/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

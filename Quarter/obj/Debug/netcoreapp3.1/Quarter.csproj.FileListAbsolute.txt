@@ -153,7 +153,6 @@ C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Quarter.Razor
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\_ViewImports.cshtml.g.cs
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\_ViewStart.cshtml.g.cs
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Quarter.RazorTargetAssemblyInfo.cache
@@ -174,3 +173,9 @@ C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\A
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Slider\Create.cshtml.g.cs
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Slider\Details.cshtml.g.cs
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Slider\Update.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\bin\Debug\netcoreapp3.1\Utilities.dll
+C:\Users\Help\Desktop\Code\Quarter\Quarter\bin\Debug\netcoreapp3.1\Utilities.pdb
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutV2.cshtml.g.cs

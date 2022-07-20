@@ -16,7 +16,6 @@ namespace DAL.Models
 
         [NotMapped]
         public IFormFile ImageFile { get; set; }
-        public int ImageId { get; set; }
-        public Image Image { get; set; }
+        public List<SliderImage> SliderImages { get; set; }
     }
 }

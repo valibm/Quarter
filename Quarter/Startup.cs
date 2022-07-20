@@ -7,6 +7,9 @@ using DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Business.Services;
 using Business.Repositories;
+using DAL.Identity;
+using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace Quarter
 {
@@ -26,6 +29,18 @@ namespace Quarter
             services.AddDbContext<AppDbContext>(options => 
             {
                 options.UseSqlServer(_config.GetConnectionString("Default"));
+            });
+
+            services.AddIdentity<AppUser, IdentityRole>()
+                    .AddEntityFrameworkStores<AppDbContext>()
+                    .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
+                options.Password.RequiredLength = 8;
+                options.User.RequireUniqueEmail = true;
             });
 
             services.AddScoped<ISliderService, SliderRepository>();

@@ -1691,6 +1691,16 @@
         "runtime": {
           "bin/placeholder/Exceptions.dll": {}
         }
+      },
+      "Utilities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/Utilities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Utilities.dll": {}
+        }
       }
     }
   },
@@ -6136,6 +6146,11 @@
       "type": "project",
       "path": "../Exceptions/Exceptions.csproj",
       "msbuildProject": "../Exceptions/Exceptions.csproj"
+    },
+    "Utilities/1.0.0": {
+      "type": "project",
+      "path": "../Utilities/Utilities.csproj",
+      "msbuildProject": "../Utilities/Utilities.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -6146,7 +6161,8 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.27",
       "Microsoft.EntityFrameworkCore >= 3.1.27",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.27",
-      "Microsoft.EntityFrameworkCore.Tools >= 3.1.27"
+      "Microsoft.EntityFrameworkCore.Tools >= 3.1.27",
+      "Utilities >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -6189,6 +6205,9 @@
             },
             "C:\\Users\\Help\\Desktop\\Code\\Quarter\\Exceptions\\Exceptions.csproj": {
               "projectPath": "C:\\Users\\Help\\Desktop\\Code\\Quarter\\Exceptions\\Exceptions.csproj"
+            },
+            "C:\\Users\\Help\\Desktop\\Code\\Quarter\\Utilities\\Utilities.csproj": {
+              "projectPath": "C:\\Users\\Help\\Desktop\\Code\\Quarter\\Utilities\\Utilities.csproj"
             }
           }
         }
