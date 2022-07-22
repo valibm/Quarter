@@ -9,7 +9,7 @@
                 @foreach (var slider in Model.Sliders)
                {
                    <!-- ltn__slide-item -->
-                <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-60" data-bs-bg="./assets/uploads/images/@slider.Image.Name">
+                <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-60" data-bs-bg="./assets/uploads/images/@slider.SliderImage.Image.Name">
                     <div class="ltn__slide-item-inner text-center">
                         <div class="container">
                             <div class="row">
@@ -153,45 +153,28 @@
                     </div>
                 </div>
                 <div class="row ltn__custom-gutter---  justify-content-center">
-                    <div class="col-lg-4 col-sm-6 col-12">
+                    @foreach (var service in Model.Services)
+                    {
+                        <div class="col-lg-4 col-sm-6 col-12">
                         <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
                             <div class="ltn__feature-icon">
                                 <!-- <span><i class="flaticon-house"></i></span> -->
-                                <img src="~/assets/img/icons/icon-img/21.png" alt="#">
+                                @foreach (var serviceImage in service.ServiceImages)
+                                {
+                                    if (serviceImage.Image.ForCard == true)
+                                    {
+                                        <img src="~/assets/Uploads/Images/@serviceImage.Image.Name" alt="#">
+                                    }
+                                }
                             </div>
                             <div class="ltn__feature-info">
-                                <h3><a href="service-details.html">Buy a home</a></h3>
-                                <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
-                                <a class="ltn__service-btn" href="service-details.html">Find A Home <i class="flaticon-right-arrow"></i></a>
+                                <h3><a asp-controller="servicedetails" asp-action="index" asp-route-id="@service.Id">@service.Title</a></h3>
+                                <p>@service.Description</p>
+                                <a class="ltn__service-btn" asp-controller="servicedetails" asp-action="index" asp-route-id="@service.Id">Find A Home <i class="flaticon-right-arrow"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-sm-6 col-12">
-                        <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1 active">
-                            <div class="ltn__feature-icon">
-                                <!-- <span><i class="flaticon-house-3"></i></span> -->
-                                <img src="~/assets/img/icons/icon-img/22.png" alt="#">
-                            </div>
-                            <div class="ltn__feature-info">
-                                <h3><a href="service-details.html">Rent a home</a></h3>
-                                <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
-                                <a class="ltn__service-btn" href="service-details.html">Find A Home <i class="flaticon-right-arrow"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 col-12">
-                        <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
-                            <div class="ltn__feature-icon">
-                                <!-- <span><i class="flaticon-deal-1"></i></span> -->
-                                <img src="~/assets/img/icons/icon-img/23.png" alt="#">
-                            </div>
-                            <div class="ltn__feature-info">
-                                <h3><a href="service-details.html">Sell a home</a></h3>
-                                <p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>
-                                <a class="ltn__service-btn" href="service-details.html">Find A Home <i class="flaticon-right-arrow"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>

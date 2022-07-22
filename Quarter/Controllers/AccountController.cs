@@ -139,5 +139,19 @@ namespace Quarter.Controllers
                 }
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AccountDetails()
+        {
+            var appUser = await _userManager.GetUserAsync(HttpContext.User);
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AccountDetails(AccountDetailsVM accountDetailsVM)
+        {
+            var appUser = await _userManager.GetUserAsync(HttpContext.User);
+            return View();
+        }
     }
 }

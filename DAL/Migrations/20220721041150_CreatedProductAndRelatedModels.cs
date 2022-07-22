@@ -20,11 +20,6 @@ namespace DAL.Migrations
                 table: "Sliders");
 
             migrationBuilder.AddColumn<int>(
-                name: "ProductId",
-                table: "Images",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
                 name: "ServiceId",
                 table: "Images",
                 nullable: true);
@@ -95,7 +90,7 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SliderImage",
+                name: "SliderImages",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -105,15 +100,15 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SliderImage", x => x.Id);
+                    table.PrimaryKey("PK_SliderImages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SliderImage_Images_ImageId",
+                        name: "FK_SliderImages_Images_ImageId",
                         column: x => x.ImageId,
                         principalTable: "Images",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SliderImage_Sliders_SliderId",
+                        name: "FK_SliderImages_Sliders_SliderId",
                         column: x => x.SliderId,
                         principalTable: "Sliders",
                         principalColumn: "Id",
@@ -263,7 +258,7 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductImage",
+                name: "ProductImages",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -273,15 +268,15 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductImage", x => x.Id);
+                    table.PrimaryKey("PK_ProductImages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductImage_Images_ImageId",
+                        name: "FK_ProductImages_Images_ImageId",
                         column: x => x.ImageId,
                         principalTable: "Images",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductImage_Products_ProductId",
+                        name: "FK_ProductImages_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -310,7 +305,7 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FloorPlansImage",
+                name: "FloorPlansImages",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -320,25 +315,20 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FloorPlansImage", x => x.Id);
+                    table.PrimaryKey("PK_FloorPlansImages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FloorPlansImage_FloorPlans_FloorPlanId",
+                        name: "FK_FloorPlansImages_FloorPlans_FloorPlanId",
                         column: x => x.FloorPlanId,
                         principalTable: "FloorPlans",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FloorPlansImage_Images_ImageId",
+                        name: "FK_FloorPlansImages_Images_ImageId",
                         column: x => x.ImageId,
                         principalTable: "Images",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Images_ProductId",
-                table: "Images",
-                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Images_ServiceId",
@@ -361,13 +351,13 @@ namespace DAL.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FloorPlansImage_FloorPlanId",
-                table: "FloorPlansImage",
+                name: "IX_FloorPlansImages_FloorPlanId",
+                table: "FloorPlansImages",
                 column: "FloorPlanId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FloorPlansImage_ImageId",
-                table: "FloorPlansImage",
+                name: "IX_FloorPlansImages_ImageId",
+                table: "FloorPlansImages",
                 column: "ImageId");
 
             migrationBuilder.CreateIndex(
@@ -386,13 +376,13 @@ namespace DAL.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductImage_ImageId",
-                table: "ProductImage",
+                name: "IX_ProductImages_ImageId",
+                table: "ProductImages",
                 column: "ImageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductImage_ProductId",
-                table: "ProductImage",
+                name: "IX_ProductImages_ProductId",
+                table: "ProductImages",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
@@ -406,27 +396,20 @@ namespace DAL.Migrations
                 column: "ProductDetailsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SliderImage_ImageId",
-                table: "SliderImage",
+                name: "IX_SliderImages_ImageId",
+                table: "SliderImages",
                 column: "ImageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SliderImage_SliderId",
-                table: "SliderImage",
-                column: "SliderId");
+                name: "IX_SliderImages_SliderId",
+                table: "SliderImages",
+                column: "SliderId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubCatagories_CatagoryId",
                 table: "SubCatagories",
                 column: "CatagoryId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Images_Products_ProductId",
-                table: "Images",
-                column: "ProductId",
-                principalTable: "Products",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Images_Services_ServiceId",
@@ -440,10 +423,6 @@ namespace DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Images_Products_ProductId",
-                table: "Images");
-
-            migrationBuilder.DropForeignKey(
                 name: "FK_Images_Services_ServiceId",
                 table: "Images");
 
@@ -451,7 +430,7 @@ namespace DAL.Migrations
                 name: "FloorFeatures");
 
             migrationBuilder.DropTable(
-                name: "FloorPlansImage");
+                name: "FloorPlansImages");
 
             migrationBuilder.DropTable(
                 name: "ProductCatagories");
@@ -460,13 +439,13 @@ namespace DAL.Migrations
                 name: "ProductFeatures");
 
             migrationBuilder.DropTable(
-                name: "ProductImage");
+                name: "ProductImages");
 
             migrationBuilder.DropTable(
                 name: "Services");
 
             migrationBuilder.DropTable(
-                name: "SliderImage");
+                name: "SliderImages");
 
             migrationBuilder.DropTable(
                 name: "FloorPlans");
@@ -490,15 +469,7 @@ namespace DAL.Migrations
                 name: "Locations");
 
             migrationBuilder.DropIndex(
-                name: "IX_Images_ProductId",
-                table: "Images");
-
-            migrationBuilder.DropIndex(
                 name: "IX_Images_ServiceId",
-                table: "Images");
-
-            migrationBuilder.DropColumn(
-                name: "ProductId",
                 table: "Images");
 
             migrationBuilder.DropColumn(

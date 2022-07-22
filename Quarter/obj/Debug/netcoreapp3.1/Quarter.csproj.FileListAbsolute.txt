@@ -179,3 +179,7 @@ C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\A
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutV2.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\Account\AccountDetails.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\Create.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\Index.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\ServiceDetails\Index.cshtml.g.cs

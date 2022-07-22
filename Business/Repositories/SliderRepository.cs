@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Business.Repositories
 {
-    public class SliderRepository 
+    public class SliderRepository : ISliderService
     {
         private readonly AppDbContext _context;
         public SliderRepository(AppDbContext context)
@@ -26,7 +26,7 @@ namespace Business.Repositories
             }
 
             var data = await _context.Sliders.Where(s => !s.IsDeleted && s.Id == id)
-                                             .Include(n => n.SliderImages)
+                                             .Include(n => n.SliderImage)
                                              .ThenInclude(n => n.Image)
                                              .FirstOrDefaultAsync();
 
@@ -41,7 +41,7 @@ namespace Business.Repositories
         public async Task<List<Slider>> GetAll()
         {
             var data = await _context.Sliders.Where(s => !s.IsDeleted)
-                                             .Include(n => n.SliderImages)
+                                             .Include(n => n.SliderImage)
                                              .ThenInclude(n => n.Image)
                                              .OrderByDescending(s => s.CreatedDate)
                                              .ToListAsync();
@@ -67,7 +67,6 @@ namespace Business.Repositories
             data.Title = entity.Title;
             data.SubTitle = entity.SubTitle;
             data.Content = entity.Content;
-            data.SliderImages[0].= entity.ImageId;
             entity.UpdatedDate = DateTime.UtcNow.AddHours(4);
             await _context.SaveChangesAsync();
         }
@@ -75,7 +74,7 @@ namespace Business.Repositories
         public async Task Delete(int? id)
         {
             var entity = await Get(id);
-            entity.IsDeleted = true;
+            _context.Sliders.Remove(entity);
             await _context.SaveChangesAsync();
         }
     }

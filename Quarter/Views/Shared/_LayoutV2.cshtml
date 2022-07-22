@@ -247,10 +247,16 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                            <li class="special-link">
-                                                <a href="add-listing.html">Add Listing</a>
-                                            </li>
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                <li class="menu-icon"><a href="blog-details.html">@User.Identity.Name</a></li>
+                                                <li><a asp-controller="account" asp-action="logout">Logout</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="menu-icon"><a asp-controller="account" asp-action="login">Login</a></li>
+                                                <li class="menu-icon"><a asp-controller="account" asp-action="register">Register</a></li>
+                                            }
                                         </ul>
                                     </div>
                                 </nav>

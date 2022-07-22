@@ -27,7 +27,8 @@ namespace Business.Repositories
             }
 
             var data = await _context.Services.Where(n => !n.IsDeleted && n.Id == id)
-                                              .Include(n => n.Images)
+                                              .Include(n => n.ServiceImages)
+                                              .ThenInclude(n => n.Image)
                                               .FirstOrDefaultAsync();
 
             if (data is null)
@@ -41,7 +42,8 @@ namespace Business.Repositories
         public async Task<List<Service>> GetAll()
         {
             var data = await _context.Services.Where(s => !s.IsDeleted)
-                                              .Include(s => s.Images)
+                                              .Include(n => n.ServiceImages)
+                                              .ThenInclude(n => n.Image)
                                               .ToListAsync();
 
             if (data is null)
@@ -65,7 +67,6 @@ namespace Business.Repositories
             data.Title = entity.Title;
             data.Description = entity.Description;
             data.Content = entity.Content;
-            data.Images = entity.Images;
             entity.UpdatedDate = DateTime.UtcNow.AddHours(4);
             await _context.SaveChangesAsync();
         }

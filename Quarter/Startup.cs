@@ -45,6 +45,9 @@ namespace Quarter
 
             services.AddScoped<ISliderService, SliderRepository>();
             services.AddScoped<IImageService, ImageRepository>();
+            services.AddScoped<ISliderImageService, SliderImageRepository>();
+            services.AddScoped<IServiceImageService, ServiceImageRepository>();
+            services.AddScoped<IServiceService, ServiceRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

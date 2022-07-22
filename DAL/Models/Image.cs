@@ -9,11 +9,9 @@ namespace DAL.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public int? ProductId { get; set; }
-        public Product Product { get; set; }
-
-        public int? ServiceId { get; set; }
-        public Service Service { get; set; }
+        public bool? ForCard { get; set; }
+        public bool? ForHeader { get; set; }
+        public bool? ForGallery { get; set; }
+        public bool? ForBanner { get; set; }
     }
 }

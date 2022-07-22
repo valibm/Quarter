@@ -1,4 +1,6 @@
-﻿using Business.Services;
+﻿using Business.Repositories;
+using Business.Services;
+using DAL.Data;
 using DAL.Models;
 using Exceptions.Entity;
 using Microsoft.AspNetCore.Hosting;
@@ -16,11 +18,16 @@ namespace Quarter.Areas.Admin.Controllers
         private readonly ISliderService _sliderService;
         private readonly IImageService _imageService;
         private readonly IWebHostEnvironment _env;
-        public SliderController(ISliderService sliderService, IImageService imageService, IWebHostEnvironment env)
+        private readonly ISliderImageService _sliderImageService;
+        public SliderController(ISliderService sliderService, 
+                                IImageService imageService,
+                                IWebHostEnvironment env,
+                                ISliderImageService sliderImageService)
         {
             _sliderService = sliderService;
             _imageService = imageService;
             _env = env;
+            _sliderImageService = sliderImageService;
         }
 
         public async Task<IActionResult> Index()
@@ -65,11 +72,10 @@ namespace Quarter.Areas.Admin.Controllers
 
             Image image = new Image();
             image.Name = fileName;
-
-            await _imageService.Create(image);
-            slider.ImageId = image.Id;
-
+            
             await _sliderService.Create(slider);
+            await _imageService.Create(image);
+            await _sliderImageService.Create(slider, image);
 
             return RedirectToAction(nameof(Index));
         }
@@ -139,10 +145,9 @@ namespace Quarter.Areas.Admin.Controllers
 
                 await _imageService.Create(image);
 
-                int oldImageId = slider.ImageId;
+                int oldImageId = slider.SliderImage.ImageId;
 
-                slider.ImageId = image.Id;
-
+                await _sliderImageService.Update(slider, image);
                 await _sliderService.Update(id, slider);
                 await _imageService.Delete(oldImageId);
             }
@@ -191,7 +196,7 @@ namespace Quarter.Areas.Admin.Controllers
 
             try
             {
-                await _imageService.Delete(slider.Image.Id);
+                await _imageService.Delete(slider.SliderImage.ImageId);
             }
             catch (ArgumentNullException ex)
             {
