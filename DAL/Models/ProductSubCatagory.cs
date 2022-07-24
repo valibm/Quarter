@@ -5,14 +5,12 @@ using System.Text;
 
 namespace DAL.Models
 {
-    public class ProductCatagory : IEntity
+    public class ProductSubCatagory : IEntity
     {
         public int Id { get; set; }
-
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
         public Product Product { get; set; }
-
-        public int SubCatagoryId { get; set; }
+        public int? SubCatagoryId { get; set; }
         public SubCatagory SubCatagory { get; set; }
     }
 }

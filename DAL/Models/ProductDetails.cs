@@ -8,7 +8,6 @@ namespace DAL.Models
     public class ProductDetails: IEntity
     {
         public int Id { get; set; }
-        public string PropertyId { get; set; }
         public double HomeArea { get; set; }
         public int Rooms { get; set; }
         public int Baths { get; set; }

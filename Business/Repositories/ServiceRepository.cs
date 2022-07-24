@@ -67,7 +67,7 @@ namespace Business.Repositories
             data.Title = entity.Title;
             data.Description = entity.Description;
             data.Content = entity.Content;
-            entity.UpdatedDate = DateTime.UtcNow.AddHours(4);
+            data.UpdatedDate = DateTime.UtcNow.AddHours(4);
             await _context.SaveChangesAsync();
         }
 

@@ -26606,3 +26606,12 @@ pre[class*="language-"] {
 }
 
 /*# sourceMappingURL=dashboard-free.css.map */
+
+.img-card{
+    height: 144px;
+}
+
+.img-gallery {
+    width: 144px;
+    height: 144px;
+}

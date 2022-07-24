@@ -15,6 +15,12 @@ namespace DAL.Models
         public string Content { get; set; }
         [NotMapped]
         public List<IFormFile> ImageFiles { get; set; }
+        [NotMapped]
+        public IFormFile CardFile { get; set; }
+        [NotMapped]
+        public IFormFile HeaderFile { get; set; }
+        [NotMapped]
+        public IFormFile BannerFile { get; set; }
         public List<ServiceImage> ServiceImages { get; set; }
     }
 }

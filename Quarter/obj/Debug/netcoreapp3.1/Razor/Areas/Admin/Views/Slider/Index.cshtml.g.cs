@@ -19,8 +19,15 @@ using DAL.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 5 "C:\Users\Help\Desktop\Code\Quarter\Quarter\Areas\Admin\Views\_ViewImports.cshtml"
+using Business.ViewModels;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"55d177adb058f638e219c06e79d9e2bd2a1e6963", @"/Areas/Admin/Views/Slider/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5326f849e487b303b7988271da86a78161ca0e60", @"/Areas/Admin/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7f41ab6e833872cbb490d24312dbd0500275a3ca", @"/Areas/Admin/Views/_ViewImports.cshtml")]
     #nullable restore
     public class Areas_Admin_Views_Slider_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<Slider>>
     #nullable disable
@@ -65,7 +72,7 @@ using DAL.Models;
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("\r\n<div class=\"container\">\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-12\">\r\n            <div class=\"d-flex justify-content-between mt-5 mb-3\">\r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "55d177adb058f638e219c06e79d9e2bd2a1e69637946", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "55d177adb058f638e219c06e79d9e2bd2a1e69638135", async() => {
                 WriteLiteral("Go Back");
             }
             );
@@ -86,7 +93,7 @@ using DAL.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "55d177adb058f638e219c06e79d9e2bd2a1e69639607", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "55d177adb058f638e219c06e79d9e2bd2a1e69639796", async() => {
                 WriteLiteral("Create");
             }
             );
@@ -138,7 +145,7 @@ using DAL.Models;
 #line hidden
 #nullable disable
             WriteLiteral("             <tr>\r\n             <td>\r\n            <div class=\"d-flex px-2\">\r\n              <div>\r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "55d177adb058f638e219c06e79d9e2bd2a1e696312532", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "55d177adb058f638e219c06e79d9e2bd2a1e696312721", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -186,7 +193,7 @@ AddHtmlAttributeValue("", 1516, slider.SliderImage.Image.Name, 1516, 30, false);
 #line hidden
 #nullable disable
             WriteLiteral("</p>\r\n          </td>\r\n          <td>\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "55d177adb058f638e219c06e79d9e2bd2a1e696315321", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "55d177adb058f638e219c06e79d9e2bd2a1e696315510", async() => {
                 WriteLiteral("Details");
             }
             );
@@ -222,7 +229,7 @@ AddHtmlAttributeValue("", 1516, slider.SliderImage.Image.Name, 1516, 30, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "55d177adb058f638e219c06e79d9e2bd2a1e696318016", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "55d177adb058f638e219c06e79d9e2bd2a1e696318205", async() => {
                 WriteLiteral("Update");
             }
             );
@@ -258,7 +265,7 @@ AddHtmlAttributeValue("", 1516, slider.SliderImage.Image.Name, 1516, 30, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "55d177adb058f638e219c06e79d9e2bd2a1e696320713", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "55d177adb058f638e219c06e79d9e2bd2a1e696320902", async() => {
                 WriteLiteral("Delete");
             }
             );

@@ -1,0 +1,37 @@
+﻿@model FloorPlan
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-2">Add floor plan to the product.</h4>
+                    <form enctype="multipart/form-data" method="post" class="forms-sample">
+                        <div class="form-group">
+                            <label asp-for="Title">Title</label>
+                            <input asp-for="Title" class="form-control" placeholder="Title">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Content">Content</label>
+                            <input asp-for="Content" class="form-control" placeholder="Content">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PetsAllowed">Allow pets</label>
+                            <input asp-for="PetsAllowed" type="checkbox">
+                        </div>
+                        <div class="form-group">
+                            <h4 class="card-title mb-2">Add Image</h4>
+                            <p class="lead">
+                                The <mark>first</mark> selected image will be added for card, next <mark>five</mark> for the slider and everything after that for the gallery.
+                            </p>
+                            <label asp-for="ImageFile">Image</label>
+                            <input accept="Image/*" asp-for="ImageFile" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-outline-success mr-2">Add</button>
+                        <button asp-controller="product" asp-action="createfloorfeature" class="btn btn-outline-info">Next</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

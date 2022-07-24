@@ -48,6 +48,18 @@ namespace Quarter
             services.AddScoped<ISliderImageService, SliderImageRepository>();
             services.AddScoped<IServiceImageService, ServiceImageRepository>();
             services.AddScoped<IServiceService, ServiceRepository>();
+            services.AddScoped<IProductService, ProductRepository>();
+            services.AddScoped<IAreaService, AreaRepository>();
+            services.AddScoped<IProductStatusService, ProductStatusRepository>();
+            services.AddScoped<IProductDetailsService, ProductDetailsRepository>();
+            services.AddScoped<IProductFeatureService, ProductFeatureRepository>();
+            services.AddScoped<IProductImageService, ProductImageRepository>();
+            services.AddScoped<IAmenityService, AmenityRepository>();
+            services.AddScoped<IFloorPlansImageService, FloorPlansImageRepository>();
+            services.AddScoped<IFloorPlanService, FloorPlanRepository>();
+            services.AddScoped<IFloorFeatureService, FloorFeatureRepository>();
+            services.AddScoped<IProductSubCatagoryService, ProductSubCatagoryRepository>();
+            services.AddScoped<IPropertyTypeService, PropertyTypeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -102,6 +102,7 @@ namespace Quarter.Areas.Admin.Controllers
             return View(slider);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Update(int? id)
         {
 

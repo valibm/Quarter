@@ -183,3 +183,15 @@ C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\A
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\Create.cshtml.g.cs
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\Index.cshtml.g.cs
 C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\ServiceDetails\Index.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\Service\Index.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\Details.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Service\Update.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\Index.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Views\ProductDetails\Index.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\Create.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\Details.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\CreateFeature.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\CreateFloorFeature.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\CreateFloorPlan.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\AddAmenity.cshtml.g.cs
+C:\Users\Help\Desktop\Code\Quarter\Quarter\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\AddPropertyType.cshtml.g.cs

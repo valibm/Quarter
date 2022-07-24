@@ -8,6 +8,8 @@ namespace Business.Services
 {
     public interface IServiceImageService
     {
+        public Task<ServiceImage> GetForServiceId(int? id);
         public Task Create(Service service, List<Image> images);
+        public Task Update(Service service, Image image);
     }
 }

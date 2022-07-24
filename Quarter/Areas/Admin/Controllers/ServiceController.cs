@@ -17,7 +17,7 @@ namespace Quarter.Areas.Admin.Controllers
         private readonly IImageService _imageService;
         private readonly IWebHostEnvironment _env;
         private readonly IServiceImageService _serviceImageService;
-        public ServiceController(IServiceService serviceService, 
+        public ServiceController(IServiceService serviceService,
                                  IImageService imageService,
                                  IWebHostEnvironment env,
                                  IServiceImageService serviceImageService)
@@ -45,6 +45,35 @@ namespace Quarter.Areas.Admin.Controllers
             return View(services);
         }
 
+        public async Task<IActionResult> Details(int? id)
+        {
+            Service service;
+            try
+            {
+                service = await _serviceService.Get(id);
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw ex;
+            }
+            catch (NullReferenceException ex)
+            {
+                throw ex;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return View(service);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Service service)
         {
             if (!ModelState.IsValid)
@@ -60,7 +89,7 @@ namespace Quarter.Areas.Admin.Controllers
 
             await _serviceService.Create(service);
 
-            List<Image> images  = new List<Image>();
+            List<Image> images = new List<Image>();
 
             for (int i = 0; i < service.ImageFiles.Count; i++)
             {
@@ -111,6 +140,171 @@ namespace Quarter.Areas.Admin.Controllers
             }
 
             await _serviceImageService.Create(service, images);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int? id)
+        {
+            Service service;
+            try
+            {
+                service = await _serviceService.Get(id);
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw ex;
+            }
+            catch (EntityIsNullException ex)
+            {
+                throw ex;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return View(service);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int id, Service service)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(service);
+            }
+
+            var data = await _serviceService.Get(id);
+
+            if (service.CardFile != null)
+            {
+                foreach (var serviceImage in data.ServiceImages)
+                {
+                    if (serviceImage.Image.ForCard == true)
+                    {
+                        string fileName = await service.CardFile.CreateFile(_env);
+
+                        Image image = new Image
+                        {
+                            Name = fileName,
+                            ForCard = true
+                        };
+
+                        await _imageService.Create(image);
+
+                        int oldImageId = serviceImage.ImageId;
+
+                        await _serviceImageService.Update(service, image);
+                        await _serviceService.Update(id, service);
+                        await _imageService.Delete(oldImageId);
+                    }
+                }
+            }
+
+            if (service.HeaderFile != null)
+            {
+                foreach (var serviceImage in data.ServiceImages)
+                {
+                    if (serviceImage.Image.ForHeader == true)
+                    {
+                        string fileName = await service.HeaderFile.CreateFile(_env);
+
+                        Image image = new Image
+                        {
+                            Name = fileName,
+                            ForHeader = true
+                        };
+
+                        await _imageService.Create(image);
+
+                        int oldImageId = serviceImage.ImageId;
+
+                        await _serviceImageService.Update(service, image);
+                        await _serviceService.Update(id, service);
+                        await _imageService.Delete(oldImageId);
+                    }
+                }
+            }
+
+            if (service.BannerFile != null)
+            {
+                foreach (var serviceImage in data.ServiceImages)
+                {
+                    if (serviceImage.Image.ForBanner == true)
+                    {
+                        string fileName = await service.BannerFile.CreateFile(_env);
+
+                        Image image = new Image
+                        {
+                            Name = fileName,
+                            ForBanner = true
+                        };
+
+                        await _imageService.Create(image);
+
+                        int oldImageId = serviceImage.ImageId;
+
+                        await _serviceImageService.Update(service, image);
+                        await _serviceService.Update(id, service);
+                        await _imageService.Delete(oldImageId);
+                    }
+                }
+            }
+
+            if (service.ImageFiles != null)
+            {
+                foreach (var imageFile in service.ImageFiles)
+                {
+                    foreach (var serviceImage in data.ServiceImages)
+                    {
+                        if (serviceImage.Image.ForGallery == true)
+                        {
+                            string fileName = await imageFile.CreateFile(_env);
+
+                            Image image = new Image
+                            {
+                                Name = fileName,
+                                ForGallery = true
+                            };
+
+                            await _imageService.Create(image);
+
+                            int oldImageId = serviceImage.ImageId;
+
+                            await _serviceImageService.Update(service, image);
+                            await _serviceService.Update(id, service);
+                            await _imageService.Delete(oldImageId);
+                        }
+                    }
+                }
+            }
+
+            await _serviceService.Update(id, service);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            try
+            {
+                await _serviceService.Delete(id);
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw ex;
+            }
+            catch (EntityIsNullException ex)
+            {
+                throw ex;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
             return RedirectToAction(nameof(Index));
         }

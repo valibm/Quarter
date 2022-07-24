@@ -1,0 +1,25 @@
+﻿@model ProductFeature
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-2">Add features to the product.</h4>
+                    <form enctype="multipart/form-data" method="post" class="forms-sample">
+                        <div class="form-group">
+                            <label asp-for="Name">Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Size">Size</label>
+                            <input asp-for="Size" class="form-control" placeholder="Size">
+                        </div>
+                        <button type="submit" class="btn btn-outline-success mr-2">Add</button>
+                        <button asp-controller="product" asp-action="createfloorplan" class="btn btn-outline-info">Next</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

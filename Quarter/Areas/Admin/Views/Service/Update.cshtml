@@ -1,0 +1,161 @@
+﻿@model Service
+
+@{
+    var serviceImage = ViewData["serviceImage"];
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-2">Update - Service</h4>
+                    <form enctype="multipart/form-data" method="post" class="forms-sample">
+                        <div class="form-group">
+                            <label asp-for="Title">Title</label>
+                            <input asp-for="Title" class="form-control" placeholder="Title">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description">Description</label>
+                            <input asp-for="Description" class="form-control" placeholder="Description">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Content">Content</label>
+                            <input asp-for="Content" class="form-control" placeholder="Content">
+                        </div>
+                        <input asp-for="ServiceImages" type="hidden" class="form-control" placeholder="Content">
+                        <div class="container">
+                            <div class="row">
+                                @foreach (var item in Model.ServiceImages)
+                                {
+                                    if (!(item.Image.ForGallery == true))
+                                    {
+                                        <div class="col-4">
+                                            <div class="card mb-5">
+                                                <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
+                                                    <a class="d-block">
+                                                        <img src="~/Assets/Uploads/Images/@item.Image.Name" class="border-radius-lg card-img-top img-card">
+                                                    </a>
+                                                </div>
+
+                                                <div class="card-body pt-2">
+                                                    @if (item.Image.ForCard == true)
+                                                    {
+                                                        <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">Card Image</span>
+                                                        <div class="align-items-center mt-3">
+                                                            <input accept="Image/*" asp-for="CardFile" class="btn bg-gradient-info">
+                                                        </div>
+                                                    }
+                                                    else if (item.Image.ForHeader == true)
+                                                    {
+                                                        <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">Header Image</span>
+                                                        <div class="align-items-center mt-3">
+                                                            <input accept="Image/*" asp-for="HeaderFile" class="btn bg-gradient-info">
+                                                        </div>
+                                                    }
+                                                    else if (item.Image.ForBanner == true)
+                                                    {
+                                                        <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">Banner Image</span>
+                                                        <div class="align-items-center mt-3">
+                                                            <input accept="Image/*" asp-for="BannerFile" class="btn bg-gradient-info">
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                <div class="col-4">
+                                    <div class="card mb-5">
+                                        <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
+                                            <a class="d-block">
+                                                @foreach (var item in Model.ServiceImages)
+                                                {
+                                                    if (item.Image.ForGallery == true)
+                                                    {
+                                                        <img src="~/Assets/Uploads/Images/@item.Image.Name" class="border-radius-lg img-gallery">
+                                                    }
+                                                }
+                                            </a>
+                                        </div>
+                                        <div class="card-body pt-2">
+                                            <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">Gallery Image</span>
+                                            <div class="align-items-center mt-3">
+                                                <input accept="Image/*" asp-for="ImageFiles" class="btn bg-gradient-info">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success mr-2">Submit</button>
+                        <button asp-controller="service" asp-action="index" class="btn btn-outline-dark">Cancel</button>
+                    </form>
+                    @*<div class="container">
+                    <div class="row">
+                    @foreach (var serviceImage in Model.ServiceImages)
+                    {
+                    <div class="col-4">
+                    <div class="card mb-5">
+                    <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
+                    <a href="javascript:;" class="d-block">
+                    <img src="~/Assets/Uploads/Images/@serviceImage.Image.Name" class="border-radius-lg card-img-top img-card">
+                    </a>
+                    </div>
+
+                    <div class="card-body pt-2">
+                    @if (serviceImage.Image.ForCard == true)
+                    {
+                    <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">Card Image</span>
+                    <form enctype="multipart/form-data" asp-area="admin" asp-controller="service" asp-action="changecardimage">
+                    <div class="align-items-center mt-3">
+                    <input accept="Image/*" asp-for="ImageFile" class="btn bg-gradient-info">
+                    <input asp-for="Id" type="hidden" class="btn bg-gradient-info">
+                    <button type="submit" class="btn btn-outline-success mr-2">Change Image</button>
+                    </div>
+                    </form>
+                    }
+                    else if (serviceImage.Image.ForHeader == true)
+                    {
+                    <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">Header Image</span>
+                    <form enctype="multipart/form-data" asp-area="admin" asp-controller="service" asp-action="changeheaderimage">
+                    <div class="align-items-center mt-3">
+                    <input accept="Image/*" asp-for="ImageFiles" class="btn bg-gradient-info">
+                    <input asp-for="Id" type="hidden" class="btn bg-gradient-info">
+                    <button type="submit" class="btn btn-outline-success mr-2">Change Image</button>
+                    </div>
+                    </form>
+                    }
+                    else if (serviceImage.Image.ForBanner == true)
+                    {
+                    <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">Banner Image</span>
+                    <form enctype="multipart/form-data" asp-area="admin" asp-controller="service" asp-action="changebannerimage">
+                    <div class="align-items-center mt-3">
+                    <input accept="Image/*" asp-for="ImageFiles" class="btn bg-gradient-info">
+                    <input asp-for="Id" type="hidden" class="btn bg-gradient-info">
+                    <button type="submit" class="btn btn-outline-success mr-2">Change Image</button>
+                    </div>
+                    </form>
+                    }
+                    else
+                    {
+                    <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">Gallery Image</span>
+                    <form enctype="multipart/form-data" asp-area="admin" asp-controller="service" asp-action="changegalleryimage">
+                    <div class="align-items-center mt-3">
+                    <input accept="Image/*" asp-for="ImageFiles" class="btn bg-gradient-info">
+                    <input asp-for="Id" type="hidden" class="btn bg-gradient-info">
+                    <button type="submit" class="btn btn-outline-success mr-2">Change Image</button>
+                    </div>
+                    </form>
+                    }
+                    </div>
+                    </div>
+                    </div>
+                    }
+                    </div>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

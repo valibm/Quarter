@@ -12,5 +12,7 @@ namespace DAL.Models
 
         public int CatagoryId { get; set; }
         public Catagory Catagory { get; set; }
+
+        public List<ProductSubCatagory> ProductSubCatagories { get; set; }
     }
 }

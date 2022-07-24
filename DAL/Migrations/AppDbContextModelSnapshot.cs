@@ -341,6 +341,9 @@ namespace DAL.Migrations
                     b.Property<int>("ProductDetailsId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProductStatusId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SubDescription")
                         .HasColumnType("nvarchar(max)");
 
@@ -359,29 +362,9 @@ namespace DAL.Migrations
 
                     b.HasIndex("ProductDetailsId");
 
+                    b.HasIndex("ProductStatusId");
+
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("DAL.Models.ProductCatagory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubCatagoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("SubCatagoryId");
-
-                    b.ToTable("ProductCatagories");
                 });
 
             modelBuilder.Entity("DAL.Models.ProductDetails", b =>
@@ -405,9 +388,6 @@ namespace DAL.Migrations
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
-
-                    b.Property<string>("PropertyId")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Rooms")
                         .HasColumnType("int");
@@ -463,6 +443,43 @@ namespace DAL.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductImages");
+                });
+
+            modelBuilder.Entity("DAL.Models.ProductStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductStatuses");
+                });
+
+            modelBuilder.Entity("DAL.Models.ProductSubCatagory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubCatagoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SubCatagoryId");
+
+                    b.ToTable("ProductSubCatagories");
                 });
 
             modelBuilder.Entity("DAL.Models.Service", b =>
@@ -798,19 +815,10 @@ namespace DAL.Migrations
                         .HasForeignKey("ProductDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("DAL.Models.ProductCatagory", b =>
-                {
-                    b.HasOne("DAL.Models.Product", "Product")
+                    b.HasOne("DAL.Models.ProductStatus", "ProductStatus")
                         .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Models.SubCatagory", "SubCatagory")
-                        .WithMany()
-                        .HasForeignKey("SubCatagoryId")
+                        .HasForeignKey("ProductStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -837,6 +845,17 @@ namespace DAL.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DAL.Models.ProductSubCatagory", b =>
+                {
+                    b.HasOne("DAL.Models.Product", "Product")
+                        .WithMany("ProductSubCatagories")
+                        .HasForeignKey("ProductId");
+
+                    b.HasOne("DAL.Models.SubCatagory", "SubCatagory")
+                        .WithMany("ProductSubCatagories")
+                        .HasForeignKey("SubCatagoryId");
                 });
 
             modelBuilder.Entity("DAL.Models.ServiceImage", b =>
@@ -872,7 +891,7 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.SubCatagory", b =>
                 {
                     b.HasOne("DAL.Models.Catagory", "Catagory")
-                        .WithMany()
+                        .WithMany("SubCatagories")
                         .HasForeignKey("CatagoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

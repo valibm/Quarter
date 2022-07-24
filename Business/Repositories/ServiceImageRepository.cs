@@ -1,7 +1,11 @@
 ﻿using Business.Services;
 using DAL.Data;
 using DAL.Models;
+using Exceptions.Entity;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Business.Repositories
@@ -12,6 +16,26 @@ namespace Business.Repositories
         public ServiceImageRepository(AppDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<ServiceImage> GetForServiceId(int? id)
+        {
+            if (id is null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            var data = await _context.ServiceImages.Where(n => n.ServiceId == id)
+                                                   .Include(n => n.Image)
+                                                   .Include(n => n.Service)
+                                                   .FirstOrDefaultAsync();
+
+            if (data is null)
+            {
+                throw new EntityIsNullException();
+            }
+
+            return data;
         }
 
         public async Task Create(Service service, List<Image> images)
@@ -27,6 +51,13 @@ namespace Business.Repositories
                 serviceImages.Add(serviceImage);
             }
             service.ServiceImages = serviceImages;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Update(Service service, Image image)
+        {
+            var data = await GetForServiceId(service.Id);
+            data.ImageId = image.Id;
             await _context.SaveChangesAsync();
         }
     }

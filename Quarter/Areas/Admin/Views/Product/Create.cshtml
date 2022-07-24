@@ -1,0 +1,82 @@
+﻿@model ProductVM
+
+@{
+    List<Area> areas = (List<Area>)ViewData["areas"];
+    List<ProductStatus> productStatuses = (List<ProductStatus>)ViewData["productStatuses"];
+    List<SubCatagory> amenities = (List<SubCatagory>)ViewData["amenities"];
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-2">Create - Product</h4>
+                    <form enctype="multipart/form-data" method="post" class="forms-sample">
+                        <div class="form-group">
+                            <label asp-for="Title">Title</label>
+                            <input asp-for="Title" class="form-control" placeholder="Title">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description">Description</label>
+                            <input asp-for="Description" class="form-control" placeholder="Description">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SubDescription">Sub-Description</label>
+                            <input asp-for="SubDescription" class="form-control" placeholder="Description">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="VideoLink">Video link</label>
+                            <input asp-for="VideoLink" class="form-control" placeholder="VideoLink">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AreaId">Area</label>
+                            <select asp-for="AreaId" class="form-control form-control-lg">
+                                @foreach (var area in areas)
+                                {
+                                    <option value="@area.Id">@area.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ProductStatusId">Status</label>
+                            <select asp-for="ProductStatusId" class="form-control form-control-lg">
+                                @foreach (var productStatus in productStatuses)
+                                {
+                                    <option value="@productStatus.Id">@productStatus.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h4 class="card-title mb-2">Product Details</h4>
+                            <label asp-for="HomeArea">Home Area</label>
+                            <input asp-for="HomeArea" class="form-control" placeholder="Content">
+                            <label asp-for="Rooms">Rooms</label>
+                            <input asp-for="Rooms" class="form-control" placeholder="Content">
+                            <label asp-for="Baths">Baths</label>
+                            <input asp-for="Baths" class="form-control" placeholder="Content">
+                            <label asp-for="YearBuilt">Year Built</label>
+                            <input asp-for="YearBuilt" class="form-control" placeholder="Content">
+                            <label asp-for="LotDimensions">Lot Dimensions</label>
+                            <input asp-for="LotDimensions" class="form-control" placeholder="Content">
+                            <label asp-for="Beds">Beds</label>
+                            <input asp-for="Beds" class="form-control" placeholder="Content">
+                            <label asp-for="Price">Price</label>
+                            <input asp-for="Price" class="form-control" placeholder="Content">
+                        </div>
+                        <div class="form-group">
+                            <h4 class="card-title mb-2">Add Images</h4>
+                            <p class="lead">
+                                The <mark>first</mark> selected image will be added for card, next <mark>five</mark> for the slider and everything after that for the gallery.
+                            </p>
+                            <label asp-for="ImageFiles">Image</label>
+                            <input accept="Image/*" asp-for="ImageFiles" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-outline-success mr-2">Next</button>
+                        <button asp-controller="product" asp-action="index" class="btn btn-outline-dark">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

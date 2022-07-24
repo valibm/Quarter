@@ -1,7 +1,9 @@
 ﻿using DAL.Base;
 using DAL.Entity;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace DAL.Models
@@ -18,10 +20,17 @@ namespace DAL.Models
 
         public List<ProductImage> ProductImages { get; set; }
         public List<ProductFeature> ProductFeatures { get; set; }
+        public List<ProductSubCatagory> ProductSubCatagories { get; set; }
 
         public int ProductDetailsId { get; set; }
         public ProductDetails ProductDetails { get; set; }
 
         public List<FloorPlan> FloorPlans { get; set; }
+
+        public int ProductStatusId { get; set; }
+        public ProductStatus ProductStatus { get; set; }
+
+        [NotMapped]
+        public IFormFile ImageFiles { get; set; }
     }
 }

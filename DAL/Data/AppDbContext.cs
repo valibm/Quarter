@@ -14,7 +14,6 @@ namespace DAL.Data
         public DbSet<SliderImage> SliderImages { get; set; }
 
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductCatagory> ProductCatagories { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Catagory> Catagories { get; set; }
         public DbSet<SubCatagory> SubCatagories { get; set; }
@@ -25,6 +24,8 @@ namespace DAL.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<ProductDetails> ProductDetails { get; set; }
         public DbSet<ProductFeature> ProductFeatures { get; set; }
+        public DbSet<ProductSubCatagory> ProductSubCatagories { get; set; }
+        public DbSet<ProductStatus> ProductStatuses { get; set; }
 
         public DbSet<Service> Services { get; set; }
         public DbSet<ServiceImage> ServiceImages { get; set; }
