@@ -1,0 +1,56 @@
+﻿@model List<Microsoft.AspNetCore.Identity.IdentityRole>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-2">Add - Role</h4>
+                    <form enctype="multipart/form-data" asp-action="AddRole" asp-controller="RoleManager" class="forms-sample">
+                        <div class="form-group">
+                            <input name="roleName" class="form-control" placeholder="Name">
+                            <button type="submit" class="btn btn-outline-success mr-2">Add New Role</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-20">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Setting</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var role in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">@role.Id</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">@role.Name</p>
+                                    </td>
+                                    <td>
+                                        <a asp-area="admin" asp-controller="rolemanager" asp-action="deleterole"  asp-route-id="@role.Id" class="btn bg-gradient-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

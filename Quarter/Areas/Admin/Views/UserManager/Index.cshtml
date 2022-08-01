@@ -1,0 +1,55 @@
+﻿@model List<UserRolesVM>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="d-flex justify-content-between mt-5 mb-3">
+                <a asp-area="admin" asp-controller="dashboard" asp-action="index" class="btn bg-gradient-secondary">Go Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">First Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Last Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Roles</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Settings</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">@user.FirstName</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">@user.LastName</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">@user.Email</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">@string.Join(" , ", user.Roles.ToList())</p>
+                                    </td>
+                                    <td>
+                                        <a asp-area="admin" asp-controller="usermanager" asp-action="manage" asp-route-userId="@user.UserId" class="btn bg-gradient-info">Manage</a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

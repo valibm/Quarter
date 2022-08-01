@@ -1,9 +1,8 @@
-﻿@model ProductVM
+﻿@model Product
 
 @{
     List<Area> areas = (List<Area>)ViewData["areas"];
     List<ProductStatus> productStatuses = (List<ProductStatus>)ViewData["productStatuses"];
-    List<SubCatagory> amenities = (List<SubCatagory>)ViewData["amenities"];
 }
 
 <div class="container">
@@ -11,7 +10,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-2">Create - Product</h4>
+                    <h4 class="card-title mb-2">Update - Product</h4>
                     <form enctype="multipart/form-data" method="post" class="forms-sample">
                         <div class="form-group">
                             <label asp-for="Title">Title</label>
@@ -47,33 +46,79 @@
                                 }
                             </select>
                         </div>
-                        <div class="form-group">
-                            <h4 class="card-title mb-2">Product Details</h4>
-                            <label asp-for="HomeArea">Home Area</label>
-                            <input asp-for="HomeArea" class="form-control" placeholder="Content">
-                            <label asp-for="Rooms">Rooms</label>
-                            <input asp-for="Rooms" class="form-control" placeholder="Content">
-                            <label asp-for="Baths">Baths</label>
-                            <input asp-for="Baths" class="form-control" placeholder="Content">
-                            <label asp-for="YearBuilt">Year Built</label>
-                            <input asp-for="YearBuilt" class="form-control" placeholder="Content">
-                            <label asp-for="LotDimensions">Lot Dimensions</label>
-                            <input asp-for="LotDimensions" class="form-control" placeholder="Content">
-                            <label asp-for="Beds">Beds</label>
-                            <input asp-for="Beds" class="form-control" placeholder="Content">
-                            <label asp-for="Price">Price</label>
-                            <input asp-for="Price" class="form-control" placeholder="Content">
+                        <div class="container">
+                            <div class="row">
+                                @foreach (var item in Model.ProductImages)
+                                {
+                                    if (item.Image.ForCard == true)
+                                    {
+                                        <div class="col-4">
+                                            <div class="card mb-5">
+                                                <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
+                                                    <a class="d-block">
+                                                        <img src="~/Assets/Uploads/Images/@item.Image.Name" class="border-radius-lg card-img-top img-card">
+                                                    </a>
+                                                </div>
+
+                                                <div class="card-body pt-2">
+                                                    <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">Card Image</span>
+                                                    <div class="align-items-center mt-3">
+                                                        <input accept="Image/*" asp-for="CardFile" class="btn bg-gradient-info">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                <div class="col-4">
+                                    <div class="card mb-5">
+                                        <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
+                                            <a class="d-block">
+                                                @foreach (var item in Model.ProductImages)
+                                                {
+                                                    if (item.Image.ForGallery == true)
+                                                    {
+                                                        <img src="~/Assets/Uploads/Images/@item.Image.Name" class="border-radius-lg img-gallery">
+                                                    }
+                                                }
+                                            </a>
+                                        </div>
+                                        <div class="card-body pt-2">
+                                            <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">Gallery Image</span>
+                                            <div class="align-items-center mt-3">
+                                                <input accept="Image/*" asp-for="ImageFiles" class="btn bg-gradient-info">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="card mb-5">
+                                        <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
+                                            <a class="d-block">
+                                                @foreach (var item in Model.ProductImages)
+                                                {
+                                                    if (item.Image.ForHeader == true)
+                                                    {
+                                                        <img src="~/Assets/Uploads/Images/@item.Image.Name" class="border-radius-lg img-gallery">
+
+                                                    }
+                                                }
+                                            </a>
+                                        </div>
+                                        <div class="card-body pt-2">
+                                            <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">Header Image</span>
+                                            <div class="align-items-center mt-3">
+                                                <input accept="Image/*" asp-for="HeaderFiles" class="btn bg-gradient-info">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <h4 class="card-title mb-2">Add Images</h4>
-                            <p class="lead">
-                                The <mark>first</mark> selected image will be added for card, next <mark>five</mark> for the slider and everything after that for the gallery.
-                            </p>
-                            <label asp-for="ImageFiles">Image</label>
-                            <input accept="Image/*" asp-for="ImageFiles" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-outline-success mr-2">Next</button>
-                        <button asp-controller="product" asp-action="index" class="btn btn-outline-dark">Cancel</button>
+                        <button type="submit" class="btn btn-outline-success mr-2">Update</button>
+                        <button asp-controller="product" asp-action="UpdateDetail" asp-route-id="@Model.Id" class="btn btn-outline-dark">Cancel</button>
                     </form>
                 </div>
             </div>

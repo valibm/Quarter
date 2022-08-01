@@ -1,5 +1,9 @@
 ﻿@model FloorPlan
 
+@{
+    Product product = (Product)ViewData["product"];
+}
+
 <div class="container">
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
@@ -16,6 +20,10 @@
                             <input asp-for="Content" class="form-control" placeholder="Content">
                         </div>
                         <div class="form-group">
+                            <label asp-for="TotalArea">Total Area</label>
+                            <input asp-for="TotalArea" class="form-control" placeholder="Total Area">
+                        </div>
+                        <div class="form-group">
                             <label asp-for="PetsAllowed">Allow pets</label>
                             <input asp-for="PetsAllowed" type="checkbox">
                         </div>
@@ -28,7 +36,7 @@
                             <input accept="Image/*" asp-for="ImageFile" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-outline-success mr-2">Add</button>
-                        <button asp-controller="product" asp-action="createfloorfeature" class="btn btn-outline-info">Next</button>
+                        <button asp-controller="product" asp-action="addamenity" asp-route-id="@product.Id" class="btn btn-outline-info">Next</button>
                     </form>
                 </div>
             </div>

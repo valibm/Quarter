@@ -38,10 +38,28 @@ namespace DAL.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<double?>("Experience")
+                        .HasColumnType("float");
+
+                    b.Property<string>("FacebookLink")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Information")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LinkedInLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -67,20 +85,31 @@ namespace DAL.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("PositionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PracticeArea")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubInformation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TwitterLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("UserInformationId")
-                        .HasColumnType("int");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -90,82 +119,9 @@ namespace DAL.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("UserInformationId");
+                    b.HasIndex("PositionId");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("DAL.Identity.UserDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Experience")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Positions")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PracticeArea")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserDetails");
-                });
-
-            modelBuilder.Entity("DAL.Identity.UserInformation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Information")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SubInformation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserDetailsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserSocialsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserDetailsId");
-
-                    b.HasIndex("UserSocialsId");
-
-                    b.ToTable("UserInformations");
-                });
-
-            modelBuilder.Entity("DAL.Identity.UserSocials", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FacebookLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LinkedInLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TwitterLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserSocials");
                 });
 
             modelBuilder.Entity("DAL.Models.Area", b =>
@@ -188,6 +144,85 @@ namespace DAL.Migrations
                     b.ToTable("Areas");
                 });
 
+            modelBuilder.Entity("DAL.Models.Blog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Blogs");
+                });
+
+            modelBuilder.Entity("DAL.Models.BlogImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("ImageId");
+
+                    b.ToTable("BlogImages");
+                });
+
+            modelBuilder.Entity("DAL.Models.BlogTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("BlogTags");
+                });
+
             modelBuilder.Entity("DAL.Models.Catagory", b =>
                 {
                     b.Property<int>("Id")
@@ -203,27 +238,40 @@ namespace DAL.Migrations
                     b.ToTable("Catagories");
                 });
 
-            modelBuilder.Entity("DAL.Models.FloorFeature", b =>
+            modelBuilder.Entity("DAL.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("FloorPlanId")
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("BlogId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Size")
-                        .HasColumnType("float");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsAllowed")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FloorPlanId");
+                    b.HasIndex("AppUserId");
 
-                    b.ToTable("FloorFeatures");
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("DAL.Models.FloorPlan", b =>
@@ -244,6 +292,9 @@ namespace DAL.Migrations
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("TotalArea")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -267,7 +318,8 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FloorPlanId");
+                    b.HasIndex("FloorPlanId")
+                        .IsUnique();
 
                     b.HasIndex("ImageId");
 
@@ -319,12 +371,30 @@ namespace DAL.Migrations
                     b.ToTable("Locations");
                 });
 
+            modelBuilder.Entity("DAL.Models.Position", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Positions");
+                });
+
             modelBuilder.Entity("DAL.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AreaId")
                         .HasColumnType("int");
@@ -339,6 +409,9 @@ namespace DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("ProductDetailsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductFeatureId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductStatusId")
@@ -358,9 +431,13 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId");
+
                     b.HasIndex("AreaId");
 
                     b.HasIndex("ProductDetailsId");
+
+                    b.HasIndex("ProductFeatureId");
 
                     b.HasIndex("ProductStatusId");
 
@@ -407,18 +484,31 @@ namespace DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Bathroom")
+                        .HasColumnType("float");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<double>("Bedroom")
+                        .HasColumnType("float");
 
-                    b.Property<double>("Size")
+                    b.Property<double>("DiningArea")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Garage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Garden")
+                        .HasColumnType("float");
+
+                    b.Property<double>("GymArea")
+                        .HasColumnType("float");
+
+                    b.Property<double>("LivingRoom")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Parking")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("ProductFeatures");
                 });
@@ -607,6 +697,30 @@ namespace DAL.Migrations
                     b.ToTable("SubCatagories");
                 });
 
+            modelBuilder.Entity("DAL.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -740,24 +854,13 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Identity.AppUser", b =>
                 {
-                    b.HasOne("DAL.Identity.UserInformation", "UserInformation")
+                    b.HasOne("DAL.Models.Image", "Image")
                         .WithMany()
-                        .HasForeignKey("UserInformationId");
-                });
+                        .HasForeignKey("ImageId");
 
-            modelBuilder.Entity("DAL.Identity.UserInformation", b =>
-                {
-                    b.HasOne("DAL.Identity.UserDetails", "UserDetails")
+                    b.HasOne("DAL.Models.Position", "Position")
                         .WithMany()
-                        .HasForeignKey("UserDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Identity.UserSocials", "UserSocials")
-                        .WithMany()
-                        .HasForeignKey("UserSocialsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PositionId");
                 });
 
             modelBuilder.Entity("DAL.Models.Area", b =>
@@ -769,13 +872,56 @@ namespace DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DAL.Models.FloorFeature", b =>
+            modelBuilder.Entity("DAL.Models.Blog", b =>
                 {
-                    b.HasOne("DAL.Models.FloorPlan", "FloorPlan")
-                        .WithMany("FloorFeatures")
-                        .HasForeignKey("FloorPlanId")
+                    b.HasOne("DAL.Identity.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
+                });
+
+            modelBuilder.Entity("DAL.Models.BlogImage", b =>
+                {
+                    b.HasOne("DAL.Models.Blog", "Blog")
+                        .WithMany("BlogImages")
+                        .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("DAL.Models.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DAL.Models.BlogTag", b =>
+                {
+                    b.HasOne("DAL.Models.Blog", "Blog")
+                        .WithMany("BlogTags")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.Tag", "Tag")
+                        .WithMany("BlogTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DAL.Models.Comment", b =>
+                {
+                    b.HasOne("DAL.Identity.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("DAL.Models.Blog", "Blog")
+                        .WithMany("Comments")
+                        .HasForeignKey("BlogId");
+
+                    b.HasOne("DAL.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("DAL.Models.FloorPlan", b =>
@@ -790,8 +936,8 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.FloorPlansImage", b =>
                 {
                     b.HasOne("DAL.Models.FloorPlan", "FloorPlan")
-                        .WithMany("FloorPlansImages")
-                        .HasForeignKey("FloorPlanId")
+                        .WithOne("FloorPlansImage")
+                        .HasForeignKey("DAL.Models.FloorPlansImage", "FloorPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -804,6 +950,10 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Product", b =>
                 {
+                    b.HasOne("DAL.Identity.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
+
                     b.HasOne("DAL.Models.Area", "Area")
                         .WithMany("Products")
                         .HasForeignKey("AreaId")
@@ -816,18 +966,15 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DAL.Models.ProductFeature", "ProductFeature")
+                        .WithMany()
+                        .HasForeignKey("ProductFeatureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DAL.Models.ProductStatus", "ProductStatus")
                         .WithMany()
                         .HasForeignKey("ProductStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DAL.Models.ProductFeature", b =>
-                {
-                    b.HasOne("DAL.Models.Product", "Product")
-                        .WithMany("ProductFeatures")
-                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

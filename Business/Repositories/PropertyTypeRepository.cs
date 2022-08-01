@@ -51,5 +51,21 @@ namespace Business.Repositories
 
             return data;
         }
+
+        public async Task<List<SubCatagory>> GetForWidget()
+        {
+            var data = await _context.SubCatagories.Where(n => n.Catagory.Name.ToUpper() == "PROPERTY TYPE")
+                                                   .Include(n => n.Catagory)
+                                                   .Take(5)
+                                                   .OrderByDescending(n => n.Id)
+                                                   .ToListAsync();
+
+            if (data is null)
+            {
+                throw new EntityIsNullException();
+            }
+
+            return data;
+        }
     }
 }

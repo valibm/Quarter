@@ -1,0 +1,21 @@
+﻿@model Tag
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-2">Update - Tag</h4>
+                    <form method="post" class="forms-sample">
+                        <div class="form-group">
+                            <label asp-for="Name">Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="Name">
+                        </div>
+                        <button type="submit" class="btn btn-outline-success mr-2">Create</button>
+                        <button asp-controller="tag" asp-action="index" class="btn btn-outline-dark">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

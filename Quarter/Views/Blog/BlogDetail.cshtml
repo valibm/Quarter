@@ -1,0 +1,511 @@
+﻿@model BlogDetailVM
+
+<!-- BREADCRUMB AREA START -->
+<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bs-bg="./assets/img/bg/14.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ltn__breadcrumb-inner">
+                    <h1 class="page-title">News Details</h1>
+                    <div class="ltn__breadcrumb-list">
+                        <ul>
+                            <li><a asp-controller="Home" asp-action="Index"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
+                            <li><a asp-controller="blog" asp-action="index"> Blogs</a></li>
+                            <li>News Details</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- BREADCRUMB AREA END -->
+<!-- PAGE DETAILS AREA START (blog-details) -->
+<div class="ltn__page-details-area ltn__blog-details-area mb-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="ltn__blog-details-wrap">
+                    <div class="ltn__page-details-inner ltn__blog-details-inner">
+                        <h2 class="ltn__blog-title">
+                            @Model.Blog.Title
+                        </h2>
+                        <div class="ltn__blog-meta">
+                            <ul>
+                                <li class="ltn__blog-author">
+                                    <a href="#"><img class="blog-profile" src="~/Assets/Uploads/Images/@Model.Blog.AppUser.Image.Name" alt="#">By: @Model.Blog.AppUser.FirstName</a>
+                                </li>
+                                <li class="ltn__blog-date">
+                                    <i class="far fa-calendar-alt"></i>@Model.Blog.CreatedDate.ToString("d,  MMMM yyyy", CultureInfo.InvariantCulture)
+                                </li>
+                                <li>
+                                    <a href="#"><i class="far fa-comments"></i>@Model.Comments.Count Comments</a>
+                                </li>
+                            </ul>
+                        </div>
+                        @foreach (var blogImage in Model.Blog.BlogImages)
+                        {
+                            @if (blogImage.Image.ForCard == true)
+                            {
+                                <img src="~/Assets/Uploads/Images/@blogImage.Image.Name" alt="Image">
+                            }
+                        }
+                        <p>@Model.Blog.Content</p>
+                        <div class="row">
+                            @foreach (var blogImage in Model.Blog.BlogImages)
+                            {
+                                @if (blogImage.Image.ForGallery == true)
+                                {
+                                    <div class="col-lg-6">
+                                        <img src="~/Assets/Uploads/Images/@blogImage.Image.Name" alt="Image">
+                                    </div>
+                                }
+                            }
+                        </div>
+
+                    </div>
+                    <!-- blog-tags-social-media -->
+                    <div class="ltn__blog-tags-social-media mt-80 row">
+                        <div class="ltn__tagcloud-widget col-lg-8">
+                            <h4>Releted Tags</h4>
+                            <ul>
+                                @foreach (var blogTag in Model.Blog.BlogTags)
+                                {
+                                    <li>
+                                        <a>@blogTag.Tag.Name</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- related-post -->
+                    <div class="related-post-area mb-50">
+                        <h4 class="title-2">Related Post</h4>
+                        <div class="row">
+                            @foreach (var blog in Model.RelatedBlogs)
+                            {
+                                if (Model.RelatedBlogs is null)
+                                {
+                                    <h4 class="title-2">There is no realated blogs found</h4>
+                                }
+                                else
+                                {
+                                    <div class="col-md-6">
+                                        <!-- Blog Item -->
+                                        <div class="ltn__blog-item ltn__blog-item-6">
+                                            @foreach (var blogImage in blog.BlogImages)
+                                            {
+                                                @if (blogImage.Image.ForCard == true)
+                                                {
+                                                    <div class="ltn__blog-img">
+                                                        <a asp-controller="blog" asp-action="blogdetail" asp-route-id="@blog.Id"><img src="~/Assets/Uploads/Images/@blogImage.Image.Name" alt="Image"></a>
+                                                    </div>
+                                                }
+                                            }
+                                            <div class="ltn__blog-brief">
+                                                <div class="ltn__blog-meta">
+                                                    <ul>
+                                                        <li class="ltn__blog-date ltn__secondary-color">
+                                                            <i class="far fa-calendar-alt"></i>@blog.CreatedDate.ToString("d,  MMMM yyyy", CultureInfo.InvariantCulture)
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <h3 class="ltn__blog-title">
+                                                    <a asp-controller="blog" asp-action="blogdetail" asp-route-id="@blog.Id">
+                                                        @blog.Title
+                                                    </a>
+                                                </h3>
+                                                <p>@blog.Description</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <!-- comment-area -->
+                    <div class="ltn__comment-area mb-50">
+                        <div class="ltn-author-introducing clearfix">
+                            <div class="author-img">
+                                <a asp-controller="team" asp-action="teamdetail" asp-route-id="@Model.Blog.AppUser.Id">
+                                    <img src="~/Assets/Uploads/Images/@Model.Blog.AppUser.Image.Name" alt="Author Image">
+                                </a>
+                            </div>
+                            <div class="author-info">
+                                <h6>Written by</h6>
+                                <a asp-controller="team" asp-action="teamdetail" asp-route-id="@Model.Blog.AppUser.Id">
+                                    <h2>@Model.Blog.AppUser.FirstName @Model.Blog.AppUser.LastName</h2>
+                                </a>
+                                <p>@Model.Blog.AppUser.SubInformation</p>
+                            </div>
+                        </div>
+                        <h4 class="title-2">@Model.Comments.Count Comments</h4>
+                        <div class="ltn__comment-inner">
+                            <ul>
+                                @foreach (var comment in Model.Comments)
+                                {
+                                    <li>
+                                        <div class="ltn__comment-item clearfix">
+                                            <div class="ltn__commenter-img">
+                                                @if (@comment.AppUser.Image == null)
+                                                {
+                                                    <img src="~/Assets/Uploads/Images/default-profile-pic.jpg" class="comment-profile" alt="profile_image">
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Assets/Uploads/Images/@comment.AppUser.Image.Name" class="comment-profile" alt="Image">
+                                                }
+                                            </div>
+                                            <div class="ltn__commenter-comment">
+                                                <h6><a href="#">@comment.AppUser.FirstName @comment.AppUser.LastName</a></h6>
+                                                <span class="comment-date">@comment.CreatedDate.ToString("d,  MMMM yyyy", CultureInfo.InvariantCulture)</span>
+                                                <p>@comment.Content</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- comment-reply -->
+                    <div class="ltn__comment-reply-area ltn__form-box mb-60---">
+                        <h4 class="title-2">Post Comment</h4>
+                        <form asp-controller="blog" asp-action="addcomment" method="post">
+                            <input type="hidden" asp-for="@Model.Comment.BlogId" value="@Model.Blog.Id">
+                            <div class="input-item input-item-textarea ltn__custom-icon">
+                                <textarea asp-for="@Model.Comment.Content" placeholder="Type your comment...."></textarea>
+                            </div>
+                            <div class="btn-wrapper">
+                                <button class="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit"><i class="far fa-comments"></i> Post Comment</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <aside class="sidebar-area blog-sidebar ltn__right-sidebar">
+                    <!-- Author Widget -->
+                    <div class="widget ltn__author-widget">
+                        <div class="ltn__author-widget-inner text-center">
+                            <a asp-controller="team" asp-action="teamdetail" asp-route-id="@Model.Blog.AppUser.Id">
+                                <img class="widget-profile" src="~/Assets/Uploads/Images/@Model.Blog.AppUser.Image.Name" alt="Image">
+                            </a>
+                            <a asp-controller="team" asp-action="teamdetail" asp-route-id="@Model.Blog.AppUser.Id">
+                                <h5>@Model.Blog.AppUser.FirstName @Model.Blog.AppUser.LastName</h5>
+                            </a>
+                            <small>@Model.Blog.AppUser.Position</small>
+                            <p>@Model.Blog.AppUser.SubInformation</p>
+                            <div class="ltn__social-media">
+                                <ul>
+                                    <li><a href="@Model.Blog.AppUser.FacebookLink" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="@Model.Blog.AppUser.TwitterLink" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="@Model.Blog.AppUser.LinkedInLink" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Search Widget -->
+                    <div class="widget ltn__search-widget">
+                        <h4 class="ltn__widget-title ltn__widget-title-border-2">Search Objects</h4>
+                        <form action="#">
+                            <input type="text" name="search" placeholder="Search your keyword...">
+                            <button type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                    <!-- Form Widget -->
+                    <div class="widget ltn__form-widget">
+                        <h4 class="ltn__widget-title ltn__widget-title-border-2">Drop Messege For Book</h4>
+                        <form action="#">
+                            <textarea name="yourmessage" placeholder="Write Message..."></textarea>
+                            <button type="submit" class="btn theme-btn-1">Send Messege</button>
+                        </form>
+                    </div>
+                    <!-- Menu Widget (Category) -->
+                    <div class="widget ltn__menu-widget ltn__menu-widget-2--- ltn__menu-widget-2-color-2---">
+                        <h4 class="ltn__widget-title ltn__widget-title-border-2">Top Categories</h4>
+                        <ul>
+                            @foreach (var catagory in Model.Catagories)
+                            {
+                                <li>@catagory.Name</li>
+                            }
+                        </ul>
+                    </div>
+                    <!-- Popular Product Widget -->
+                    <div class="widget ltn__popular-product-widget">
+                        <h4 class="ltn__widget-title ltn__widget-title-border-2">Popular Properties</h4>
+                        <div class="row ltn__popular-product-widget-active slick-arrow-1">
+                            <!-- ltn__product-item -->
+                            <div class="col-12">
+                                <div class="ltn__product-item ltn__product-item-4 ltn__product-item-5 text-center---">
+                                    <div class="product-img">
+                                        <a href="product-details.html"><img src="img/product-3/6.jpg" alt="#"></a>
+                                        <div class="real-estate-agent">
+                                            <div class="agent-img">
+                                                <a href="team-details.html"><img src="img/blog/author.jpg" alt="#"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-price">
+                                            <span>$349,00<label>/Month</label></span>
+                                        </div>
+                                        <h2 class="product-title"><a href="product-details.html">New Apartment Nice View</a></h2>
+                                        <div class="product-img-location">
+                                            <ul>
+                                                <li>
+                                                    <a href="product-details.html"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <ul class="ltn__list-item-2--- ltn__list-item-2-before--- ltn__plot-brief">
+                                            <li>
+                                                <span>3 </span>
+                                                Bedrooms
+                                            </li>
+                                            <li>
+                                                <span>2 </span>
+                                                Bathrooms
+                                            </li>
+                                            <li>
+                                                <span>3450 </span>
+                                                square Ft
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ltn__product-item -->
+                            <div class="col-12">
+                                <div class="ltn__product-item ltn__product-item-4 ltn__product-item-5 text-center---">
+                                    <div class="product-img">
+                                        <a href="product-details.html"><img src="img/product-3/4.jpg" alt="#"></a>
+                                        <div class="real-estate-agent">
+                                            <div class="agent-img">
+                                                <a href="team-details.html"><img src="img/blog/author.jpg" alt="#"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-price">
+                                            <span>$349,00<label>/Month</label></span>
+                                        </div>
+                                        <h2 class="product-title"><a href="product-details.html">New Apartment Nice View</a></h2>
+                                        <div class="product-img-location">
+                                            <ul>
+                                                <li>
+                                                    <a href="product-details.html"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <ul class="ltn__list-item-2--- ltn__list-item-2-before--- ltn__plot-brief">
+                                            <li>
+                                                <span>3 </span>
+                                                Bedrooms
+                                            </li>
+                                            <li>
+                                                <span>2 </span>
+                                                Bathrooms
+                                            </li>
+                                            <li>
+                                                <span>3450 </span>
+                                                square Ft
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ltn__product-item -->
+                            <div class="col-12">
+                                <div class="ltn__product-item ltn__product-item-4 ltn__product-item-5 text-center---">
+                                    <div class="product-img">
+                                        <a href="product-details.html"><img src="img/product-3/5.jpg" alt="#"></a>
+                                        <div class="real-estate-agent">
+                                            <div class="agent-img">
+                                                <a href="team-details.html"><img src="img/blog/author.jpg" alt="#"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-price">
+                                            <span>$349,00<label>/Month</label></span>
+                                        </div>
+                                        <h2 class="product-title"><a href="product-details.html">New Apartment Nice View</a></h2>
+                                        <div class="product-img-location">
+                                            <ul>
+                                                <li>
+                                                    <a href="product-details.html"><i class="flaticon-pin"></i> Belmont Gardens, Chicago</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <ul class="ltn__list-item-2--- ltn__list-item-2-before--- ltn__plot-brief">
+                                            <li>
+                                                <span>3 </span>
+                                                Bedrooms
+                                            </li>
+                                            <li>
+                                                <span>2 </span>
+                                                Bathrooms
+                                            </li>
+                                            <li>
+                                                <span>3450 </span>
+                                                square Ft
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  -->
+                        </div>
+                    </div>
+                    <!-- Popular Post Widget -->
+                    <div class="widget ltn__popular-post-widget">
+                        <h4 class="ltn__widget-title ltn__widget-title-border-2">Leatest Blogs</h4>
+                        <ul>
+                            @foreach (var blog in Model.LatestBlogs)
+                            {
+                                <li>
+                                    <div class="popular-post-widget-item clearfix">
+                                        @foreach (var blogImage in blog.BlogImages)
+                                        {
+                                            @if (blogImage.Image.ForCard == true)
+                                            {
+                                                <div class="popular-post-widget-img">
+                                                    <a asp-controller="blog" asp-action="blogdetail" asp-route-id="@blog.Id"><img src="~/Assets/Uploads/Images/@blogImage.Image.Name" alt="Blog Image"></a>
+                                                </div>
+                                            }
+                                        }
+                                        <div class="popular-post-widget-brief">
+                                            <h6>
+                                                <a asp-controller="blog" asp-action="blogdetail" asp-route-id="@blog.Id">
+                                                    @blog.Title
+                                                </a>
+                                            </h6>
+                                            <div class="ltn__blog-meta">
+                                                <ul>
+                                                    <li class="ltn__blog-date">
+                                                        <a href="#"><i class="far fa-calendar-alt"></i>@blog.CreatedDate.ToString("d,  MMMM yyyy", CultureInfo.InvariantCulture)</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <!-- Popular Post Widget (Twitter Post) -->
+                    <div class="widget ltn__popular-post-widget ltn__twitter-post-widget">
+                        <h4 class="ltn__widget-title ltn__widget-title-border-2">Twitter Feeds</h4>
+                        <ul>
+                            <li>
+                                <div class="popular-post-widget-item clearfix">
+                                    <div class="popular-post-widget-img">
+                                        <a href="blog-details.html"><i class="fab fa-twitter"></i></a>
+                                    </div>
+                                    <div class="popular-post-widget-brief">
+                                        <p>
+                                            Carsafe - #Gutenberg ready
+                                            wordpress
+                                            Theme for Car Service, Auto Parts, Car Dealer available on
+                                            website
+                                            <a href="https://website.net">https://website.net</a>
+                                        </p>
+                                        <div class="ltn__blog-meta">
+                                            <ul>
+                                                <li class="ltn__blog-date">
+                                                    <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="popular-post-widget-item clearfix">
+                                    <div class="popular-post-widget-img">
+                                        <a href="blog-details.html"><i class="fab fa-twitter"></i></a>
+                                    </div>
+                                    <div class="popular-post-widget-brief">
+                                        <p>
+                                            Carsafe - #Gutenberg ready
+                                            wordpress
+                                            Theme for Car Service, Auto Parts, Car Dealer available on
+                                            website
+                                            <a href="https://website.net">https://website.net</a>
+                                        </p>
+                                        <div class="ltn__blog-meta">
+                                            <ul>
+                                                <li class="ltn__blog-date">
+                                                    <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="popular-post-widget-item clearfix">
+                                    <div class="popular-post-widget-img">
+                                        <a href="blog-details.html"><i class="fab fa-twitter"></i></a>
+                                    </div>
+                                    <div class="popular-post-widget-brief">
+                                        <p>
+                                            Carsafe - #Gutenberg ready
+                                            wordpress
+                                            Theme for Car Service, Auto Parts, Car Dealer available on
+                                            website
+                                            <a href="https://website.net">https://website.net</a>
+                                        </p>
+                                        <div class="ltn__blog-meta">
+                                            <ul>
+                                                <li class="ltn__blog-date">
+                                                    <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Social Media Widget -->
+                    <div class="widget ltn__social-media-widget">
+                        <h4 class="ltn__widget-title ltn__widget-title-border-2">Follow us</h4>
+                        <div class="ltn__social-media-2">
+                            <ul>
+                                <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                                <li><a href="#" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Tagcloud Widget -->
+                    <div class="widget ltn__tagcloud-widget">
+                        <h4 class="ltn__widget-title ltn__widget-title-border-2">Popular Tags</h4>
+                        <ul>
+                            @foreach (var tag in Model.Tags)
+                            {
+                                <li><a>@tag.Name</a></li>
+                            }
+                        </ul>
+                    </div>
+                    <!-- Banner Widget -->
+                    <div class="widget ltn__banner-widget d-none">
+                        <a href="shop.html"><img src="~/assets/img/banner/2.jpg" alt="#"></a>
+                    </div>
+                    <!-- Instagram Widget -->
+                    <div class="widget ltn__instagram-widget d-none">
+                        <h4 class="ltn__widget-title ltn__widget-title-border">Instagram Feeds</h4>
+                        <div class="ltn__instafeed ltn__instafeed-grid insta-grid-gutter"></div>
+                    </div>
+
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE DETAILS AREA END -->

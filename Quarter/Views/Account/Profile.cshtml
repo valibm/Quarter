@@ -1,0 +1,85 @@
+﻿@model AppUser
+<!-- BREADCRUMB AREA START -->
+<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bs-bg="./assets/img/bg/14.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ltn__breadcrumb-inner">
+                    <h1 class="page-title">My Account</h1>
+                    <div class="ltn__breadcrumb-list">
+                        <ul>
+                            <li><a asp-controller="Home" asp-action="Index"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
+                            <li>My Account</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- BREADCRUMB AREA END -->
+<!-- WISHLIST AREA START -->
+<div class="liton__wishlist-area pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- PRODUCT TAB AREA START -->
+                <div class="ltn__product-tab-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="ltn__tab-menu-list mb-50">
+                                    <div class="nav">
+                                        <a class="active show" asp-controller="Account" asp-action="Profile">Profile <i class="fas fa-home"></i></a>
+                                        @if (!(Model.Information == null))
+                                        {
+                                            <a asp-controller="Account" asp-action="UpdateProfile">Update Profile Information<i class="fas fa-user"></i></a>
+                                        }
+                                        <a asp-controller="Account" asp-action="Logout">Logout <i class="fas fa-sign-out-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="col-lg-12 d-flex justify-content-center">
+                                        @if (Model.Image == null)
+                                        {
+                                            <img class="profile-pic" src="~/Assets/Uploads/Images/default-profile-pic.jpg" alt="Profile picture">
+                                        }
+                                        @if (!(Model.Image == null))
+                                        {
+                                            <img class="profile-pic" src="~/Assets/Uploads/Images/@Model.Image.Name" alt="Profile picture">
+                                        }
+                                    </div>
+                                    @if (Model.Information == null)
+                                    {
+                                        <div class="col-lg-12 mt-20">
+                                            <form enctype="multipart/form-data" method="post">
+                                                <label asp-for="Information">Information</label>
+                                                <input asp-for="Information" placeholder="Information">
+                                                <label asp-for="ImageFile">Image</label>
+                                                <input accept="Image/*" asp-for="ImageFile" class="form-control">
+                                                <button type="submit" class="btn btn-outline-success mt-20">Next</button>
+                                            </form>
+                                        </div>
+                                    }
+                                    @if (!(Model.Information == null))
+                                    {
+                                        <div class="col-lg-12 profile-info mt-20">
+                                            <h3>User Information</h3>
+                                            <p>
+                                                @Model.Information
+                                            </p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- PRODUCT TAB AREA END -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- WISHLIST AREA START -->

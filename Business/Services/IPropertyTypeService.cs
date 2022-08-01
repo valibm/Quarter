@@ -10,5 +10,6 @@ namespace Business.Services
     {
         public Task<SubCatagory> Get(int? id);
         public Task<List<SubCatagory>> GetAll();
+        public Task<List<SubCatagory>> GetForWidget();
     }
 }

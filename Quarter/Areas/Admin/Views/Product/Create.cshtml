@@ -3,7 +3,6 @@
 @{
     List<Area> areas = (List<Area>)ViewData["areas"];
     List<ProductStatus> productStatuses = (List<ProductStatus>)ViewData["productStatuses"];
-    List<SubCatagory> amenities = (List<SubCatagory>)ViewData["amenities"];
 }
 
 <div class="container">
@@ -12,7 +11,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-2">Create - Product</h4>
-                    <form enctype="multipart/form-data" method="post" class="forms-sample">
+                    <form id="formCreate" enctype="multipart/form-data" method="post" class="forms-sample">
                         <div class="form-group">
                             <label asp-for="Title">Title</label>
                             <input asp-for="Title" class="form-control" placeholder="Title">
@@ -48,21 +47,40 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <h4 class="card-title mb-2">Product Details</h4>
+                            <h4 class="card-title mb-2">Add Details</h4>
                             <label asp-for="HomeArea">Home Area</label>
-                            <input asp-for="HomeArea" class="form-control" placeholder="Content">
+                            <input asp-for="HomeArea" class="form-control" placeholder="Home Area">
                             <label asp-for="Rooms">Rooms</label>
-                            <input asp-for="Rooms" class="form-control" placeholder="Content">
+                            <input asp-for="Rooms" class="form-control" placeholder="Rooms">
                             <label asp-for="Baths">Baths</label>
-                            <input asp-for="Baths" class="form-control" placeholder="Content">
+                            <input asp-for="Baths" class="form-control" placeholder="Baths">
                             <label asp-for="YearBuilt">Year Built</label>
-                            <input asp-for="YearBuilt" class="form-control" placeholder="Content">
+                            <input asp-for="YearBuilt" class="form-control" placeholder="Year Built">
                             <label asp-for="LotDimensions">Lot Dimensions</label>
-                            <input asp-for="LotDimensions" class="form-control" placeholder="Content">
+                            <input asp-for="LotDimensions" class="form-control" placeholder="Lot Dimensions">
                             <label asp-for="Beds">Beds</label>
-                            <input asp-for="Beds" class="form-control" placeholder="Content">
+                            <input asp-for="Beds" class="form-control" placeholder="Beds">
                             <label asp-for="Price">Price</label>
-                            <input asp-for="Price" class="form-control" placeholder="Content">
+                            <input asp-for="Price" class="form-control" placeholder="Price">
+                        </div>
+                        <div class="form-group">
+                            <h4 class="card-title mb-2">Add Features</h4>
+                            <label asp-for="LivingRoom">Living Room</label>
+                            <input asp-for="LivingRoom" class="form-control" placeholder="Living Room">
+                            <label asp-for="Garage">Garage</label>
+                            <input asp-for="Garage" class="form-control" placeholder="Garage">
+                            <label asp-for="DiningArea">Dining Area</label>
+                            <input asp-for="DiningArea" class="form-control" placeholder="Dining Area">
+                            <label asp-for="Bedroom">Bedroom</label>
+                            <input asp-for="Bedroom" class="form-control" placeholder="Bedroom">
+                            <label asp-for="Bathroom">Bathroom</label>
+                            <input asp-for="Bathroom" class="form-control" placeholder="Bathroom">
+                            <label asp-for="GymArea">Gym Area</label>
+                            <input asp-for="GymArea" class="form-control" placeholder="Gym Area">
+                            <label asp-for="Garden">Garden</label>
+                            <input asp-for="Garden" class="form-control" placeholder="Garden">
+                            <label asp-for="Parking">Parking</label>
+                            <input asp-for="Parking" class="form-control" placeholder="Parking">
                         </div>
                         <div class="form-group">
                             <h4 class="card-title mb-2">Add Images</h4>
@@ -72,9 +90,34 @@
                             <label asp-for="ImageFiles">Image</label>
                             <input accept="Image/*" asp-for="ImageFiles" class="form-control">
                         </div>
+                        <input type="hidden" asp-for="FloorPlans"/>
                         <button type="submit" class="btn btn-outline-success mr-2">Next</button>
                         <button asp-controller="product" asp-action="index" class="btn btn-outline-dark">Cancel</button>
                     </form>
+@*                    <form id="floorPlanForm" class="forms-sample" enctype="multipart/form-data">
+                        <h4 class="card-title mb-2">Floor Plan</h4>
+                        <div class="form-group">
+                            <label for="titleI">Title</label>
+                            <input id="titleI" name="title" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="contentI">Content</label>
+                            <input id="contentI" name="content" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="totalareaI">Total Area</label>
+                            <input id="totalareaI" type="number" name="totalArea" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="petI">Allow Pets</label>
+                            <input id="petI" name="petsAllowed" type="checkbox" >
+                        </div>
+                        <div class="form-group">
+                            <label for="imageI">Image</label>
+                            <input id="imageI" accept="Image/*" name="imageFile" type="file" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-outline-success mr-2">Add</button>
+                    </form>*@
                 </div>
             </div>
         </div>

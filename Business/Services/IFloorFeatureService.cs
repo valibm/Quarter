@@ -8,8 +8,8 @@ namespace Business.Services
 {
     public interface IFloorFeatureService
     {
-        public Task<FloorFeature> Get(int? id);
-        public Task<List<FloorFeature>> GetAll();
-        public Task Create(FloorFeature floorFeature);
+        ////public Task<FloorFeature> Get(int? id);
+        ////public Task<List<FloorFeature>> GetAll();
+        ////public Task Create(FloorFeature floorFeature);
     }
 }

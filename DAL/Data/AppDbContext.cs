@@ -19,7 +19,6 @@ namespace DAL.Data
         public DbSet<SubCatagory> SubCatagories { get; set; }
         public DbSet<FloorPlan> FloorPlans { get; set; }
         public DbSet<FloorPlansImage> FloorPlansImages { get; set; }
-        public DbSet<FloorFeature> FloorFeatures { get; set; }
         public DbSet<Area> Areas { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<ProductDetails> ProductDetails { get; set; }
@@ -30,8 +29,14 @@ namespace DAL.Data
         public DbSet<Service> Services { get; set; }
         public DbSet<ServiceImage> ServiceImages { get; set; }
 
-        public DbSet<UserInformation> UserInformations { get; set; }
-        public DbSet<UserDetails> UserDetails { get; set; }
-        public DbSet<UserSocials> UserSocials { get; set; }
+        public DbSet<Position> Positions { get; set; }
+
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BlogImage> BlogImages { get; set; }
+
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<BlogTag> BlogTags { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
     }
 }

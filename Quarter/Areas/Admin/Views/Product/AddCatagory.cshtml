@@ -1,0 +1,41 @@
+﻿@model AmenityTypeVM
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" class="forms-sample">
+                        <h4 class="card-title mb-2">Choose a property Type</h4>
+                        @for (int i = 0; i < Model.PropertyTypeVMs.Count; i++)
+                        {
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <input type="hidden" asp-for="@Model.PropertyTypeVMs[i].PropertyTypeId" />
+                                    <input type="hidden" asp-for="@Model.PropertyTypeVMs[i].PropertyTypeName" />
+                                    <input asp-for="@Model.PropertyTypeVMs[i].Selected" />
+                                    <label asp-for="@Model.PropertyTypeVMs[i].Selected">
+                                        @Model.PropertyTypeVMs[i].PropertyTypeName
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                        <h4 class="card-title mb-2">Add amenities to your product.</h4>
+                        @for (int i = 0; i < Model.AmenityVMs.Count; i++)
+                        {
+                            <div class="form-group">
+                                <input type="hidden" asp-for="@Model.AmenityVMs[i].AmenityId" />
+                                <input type="hidden" asp-for="@Model.AmenityVMs[i].AmenityName" />
+                                <input asp-for="@Model.AmenityVMs[i].Selected" />
+                                <label asp-for="@Model.AmenityVMs[i].Selected">
+                                    @Model.AmenityVMs[i].AmenityName
+                                </label>
+                            </div>
+                        }
+                        <button type="submit" class="btn btn-outline-success mr-2">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,21 +28,21 @@ namespace Business.Repositories
             }
 
             var data = await _context.Products.Where(n => !n.IsDeleted && n.Id == id)
-                                              .Include(n => n.ProductFeatures)
+                                              .Include(n => n.ProductFeature)
                                               .Include(n => n.ProductDetails)
                                               .Include(n => n.Area)
                                               .ThenInclude(n => n.Location)
                                               .Include(p => p.ProductStatus)
                                               .Include(p => p.ProductImages)
                                               .ThenInclude(p => p.Image)
-                                              .Include(n => n.FloorPlans)
-                                              .ThenInclude(n => n.FloorFeatures)
                                               .Include(p => p.FloorPlans)
                                               .ThenInclude(p => p.FloorPlansImage)
                                               .ThenInclude(p => p.Image)
                                               .Include(p => p.ProductSubCatagories)
                                               .ThenInclude(p => p.SubCatagory)
                                               .ThenInclude(p => p.Catagory)
+                                              .Include(p => p.AppUser)
+                                              .ThenInclude(p => p.Image)
                                               .FirstOrDefaultAsync();
 
             if (data is null)
@@ -56,21 +56,21 @@ namespace Business.Repositories
         public async Task<List<Product>> GetAll()
         {
             var data = await _context.Products.Where(n => !n.IsDeleted)
-                                              .Include(n => n.ProductFeatures)
+                                              .Include(n => n.ProductFeature)
                                               .Include(n => n.ProductDetails)
                                               .Include(n => n.Area)
                                               .ThenInclude(n => n.Location)
                                               .Include(p => p.ProductStatus)
                                               .Include(p => p.ProductImages)
                                               .ThenInclude(p => p.Image)
-                                              .Include(n => n.FloorPlans)
-                                              .ThenInclude(n => n.FloorFeatures)
                                               .Include(p => p.FloorPlans)
                                               .ThenInclude(p => p.FloorPlansImage)
                                               .ThenInclude(p => p.Image)
                                               .Include(p => p.ProductSubCatagories)
                                               .ThenInclude(p => p.SubCatagory)
                                               .ThenInclude(p => p.Catagory)
+                                              .Include(p => p.AppUser)
+                                              .ThenInclude(p => p.Image)
                                               .ToListAsync();
 
             if (data is null)
@@ -81,7 +81,64 @@ namespace Business.Repositories
             return data;
         }
 
-        public async Task<Product> Create(ProductVM productVM, ProductDetails productDetails)
+        public async Task<List<Product>> GetForHome()
+        {
+            var data = await _context.Products.Where(n => !n.IsDeleted)
+                                              .Include(n => n.ProductDetails)
+                                              .Include(p => p.ProductStatus)
+                                              .Include(p => p.ProductImages)
+                                              .ThenInclude(p => p.Image)
+                                              .Include(n => n.Area)
+                                              .ThenInclude(n => n.Location)
+                                              .Include(p => p.AppUser)
+                                              .ThenInclude(p => p.Image)
+                                              .Take(6)
+                                              .OrderByDescending(n => n.CreatedDate)
+                                              .ToListAsync();
+
+            if (data is null)
+            {
+                throw new EntityIsNullException();
+            }
+
+            return data;
+        }
+
+        public async Task<List<Product>> GetAllForIndex()
+        {
+            var data = await _context.Products.Where(n => !n.IsDeleted)
+                                              .Include(n => n.ProductImages)
+                                              .ThenInclude(n => n.Image).ToListAsync();
+
+            if (data is null)
+            {
+                throw new EntityIsNullException();
+            }
+
+            return data;
+        }
+
+        public async Task<Product> GetForDetails(int? id)
+        {
+            if (id is null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            var data = await _context.Products.Where(n => !n.IsDeleted && n.Id == id)
+                                              .Include(p => p.ProductImages)
+                                              .ThenInclude(p => p.Image)
+                                              .FirstOrDefaultAsync();
+
+            if (data is null)
+            {
+                throw new EntityIsNullException();
+            }
+
+            return data;
+        }
+
+        public async Task<Product> Create(ProductVM productVM, int productDetailsId, int ProductFeatureId)
         {
             Product product = new Product
             {
@@ -91,7 +148,9 @@ namespace Business.Repositories
                 VideoLink = productVM.VideoLink,
                 AreaId = productVM.AreaId,
                 ProductStatusId = productVM.ProductStatusId,
-                ProductDetailsId = productDetails.Id,
+                ProductDetailsId = productDetailsId,
+                ProductFeatureId = ProductFeatureId,
+                AppUserId = productVM.AppUserId
             };
 
             product.CreatedDate = DateTime.UtcNow.AddHours(4);
@@ -101,28 +160,25 @@ namespace Business.Repositories
             return product;
         }
 
-        //public async Task Update(int id, Product entity)
-        //{
-        //    var data = await Get(id);
-        //    data.Title = entity.Title;
-        //    data.Description = entity.Description;
-        //    data.SubDescription = entity.SubDescription;
-        //    data.VideoLink = entity.VideoLink;
-        //    data.Images = entity.Images;
-        //    data.AreaId = entity.AreaId;
-        //    data.ProductDetailsId = entity.ProductDetailsId;
-        //    data.ProductFeatures = entity.ProductFeatures;
-        //    data.Area.LocationId = data.Area.LocationId;
-        //    data.FloorPlans = entity.FloorPlans;
-        //    entity.UpdatedDate = DateTime.UtcNow.AddHours(4);
-        //    await _context.SaveChangesAsync();
-        //}
+        public async Task Update(int id, Product entity)
+        {
+            var data = await Get(id);
+            data.Title = entity.Title;
+            data.Description = entity.Description;
+            data.SubDescription = entity.SubDescription;
+            data.VideoLink = entity.VideoLink;
+            data.AreaId = entity.AreaId;
+            data.ProductStatusId = entity.ProductStatusId;
+            entity.UpdatedDate = DateTime.UtcNow.AddHours(4);
+            await _context.SaveChangesAsync();
+        }
 
-        //public async Task Delete(int? id)
-        //{
-        //    var entity = await Get(id);
-        //    entity.IsDeleted = true;
-        //    await _context.SaveChangesAsync();
-        //}
+        public async Task Delete(int? id)
+        {
+            var entity = await Get(id);
+            entity.IsDeleted = true;
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

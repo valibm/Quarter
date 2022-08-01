@@ -9,5 +9,6 @@ namespace Business.Services
     public interface IProductSubCatagoryService
     {
         public Task Create(ProductSubCatagory productSubCatagory);
+        public Task CreateMultiple(List<ProductSubCatagory> productSubCatagories);
     }
 }

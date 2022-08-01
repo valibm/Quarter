@@ -53,5 +53,19 @@ namespace Business.Repositories
             await _context.ProductDetails.AddAsync(productDetails);
             await _context.SaveChangesAsync();
         }
+
+        public async Task Update(int id, ProductDetails entity)
+        {
+            var data = await Get(id);
+            data.HomeArea = entity.HomeArea;
+            data.YearBuilt = entity.YearBuilt;
+            data.Rooms = entity.Rooms;
+            data.Baths = entity.Baths;
+            data.Price = entity.Price;
+            data.LotDimensions = entity.LotDimensions;
+            data.Beds = entity.Beds;
+            //data.UpdatedDate = DateTime.UtcNow.AddHours(4);
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -54,6 +54,23 @@ namespace Business.Repositories
             return data;
         }
 
+        public async Task<List<Service>> GetForHome()
+        {
+            var data = await _context.Services.Where(s => !s.IsDeleted)
+                                              .Include(n => n.ServiceImages)
+                                              .ThenInclude(n => n.Image)
+                                              .Take(3)
+                                              .OrderByDescending(n => n.CreatedDate)
+                                              .ToListAsync();
+
+            if (data is null)
+            {
+                throw new EntityIsNullException();
+            }
+
+            return data;
+        }
+
         public async Task Create(Service entity)
         {
             entity.CreatedDate = DateTime.UtcNow.AddHours(4);

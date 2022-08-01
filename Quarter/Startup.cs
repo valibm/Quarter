@@ -60,6 +60,15 @@ namespace Quarter
             services.AddScoped<IFloorFeatureService, FloorFeatureRepository>();
             services.AddScoped<IProductSubCatagoryService, ProductSubCatagoryRepository>();
             services.AddScoped<IPropertyTypeService, PropertyTypeRepository>();
+            services.AddScoped<IPositionService, PositionRepository>();
+            services.AddScoped<ICatagoryService, CatagoryRepository>();
+            services.AddScoped<ISubCatagoryService, SubCatagoryRepository>();
+            services.AddScoped<ILocationService, LocationRepository>();
+            services.AddScoped<IBlogService, BlogRepository>();
+            services.AddScoped<IBlogImageService, BlogImageRepository>();
+            services.AddScoped<ITagService, TagRepository>();
+            services.AddScoped<IBlogTagService, BlogTagRepository>();
+            services.AddScoped<ICommentService, CommentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +82,9 @@ namespace Quarter
             app.UseRouting();
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

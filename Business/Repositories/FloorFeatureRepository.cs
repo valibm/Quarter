@@ -19,42 +19,40 @@ namespace Business.Repositories
             _context = context;
         }
 
-        public async Task<FloorFeature> Get(int? id)
-        {
-            if (id is null)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
+        //public async Task<FloorFeature> Get(int? id)
+        //{
+        //    if (id is null)
+        //    {
+        //        throw new ArgumentNullException(nameof(id));
+        //    }
 
-            var data = await _context.FloorFeatures.Where(n => n.Id == id)
-                                                   .Include(n => n.FloorPlan)
-                                                   .FirstOrDefaultAsync();
+        //    var data = await _context.FloorFeatures.Where(n => n.Id == id)
+        //                                           .FirstOrDefaultAsync();
 
-            if (data is null)
-            {
-                throw new EntityIsNullException();
-            }
+        //    if (data is null)
+        //    {
+        //        throw new EntityIsNullException();
+        //    }
 
-            return data;
-        }
+        //    return data;
+        //}
 
-        public async Task<List<FloorFeature>> GetAll()
-        {
-            var data = await _context.FloorFeatures.Include(n => n.FloorPlan)
-                                                   .ToListAsync();
+        //public async Task<List<FloorFeature>> GetAll()
+        //{
+        //    var data = await _context.FloorFeatures.ToListAsync();
 
-            if (data is null)
-            {
-                throw new EntityIsNullException();
-            }
+        //    if (data is null)
+        //    {
+        //        throw new EntityIsNullException();
+        //    }
 
-            return data;
-        }
+        //    return data;
+        //}
 
-        public async Task Create(FloorFeature floorFeature)
-        {
-            await _context.FloorFeatures.AddAsync(floorFeature);
-            await _context.SaveChangesAsync();
-        }
+        //public async Task Create(FloorFeature floorFeature)
+        //{
+        //    await _context.FloorFeatures.AddAsync(floorFeature);
+        //    await _context.SaveChangesAsync();
+        //}
     }
 }

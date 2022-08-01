@@ -10,5 +10,6 @@ namespace Business.Services
     {
         public Task<ProductImage> GetForProductId(int? id);
         public Task Create(Product product, List<Image> images);
+        public Task Update(Product product, Image image);
     }
 }

@@ -14,50 +14,50 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-  <div class="table-responsive">
-    <table class="table align-items-center mb-0">
-      <thead>
-        <tr>
-          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
-          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Title</th>
-          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Sub-title</th>
-          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Content</th>
-          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Settings</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-          @foreach (var slider in Model)
-         {
-             <tr>
-             <td>
-            <div class="d-flex px-2">
-              <div>
-                <img src="~/assets/uploads/images/@slider.SliderImage.Image.Name" class="avatar avatar-sm rounded-circle me-2">
-              </div>
-            </div>
-          </td>
-          <td>
-            <p class="text-xs font-weight-bold mb-0">@slider.Title</p>
-          </td>
-          <td>
-            <p class="text-xs font-weight-bold mb-0">@slider.SubTitle</p>
-          </td>
-          <td>
-            <p class="text-xs font-weight-bold mb-0">@slider.Content</p>
-          </td>
-          <td>
-            <a asp-area="admin" asp-controller="slider" asp-action="details" asp-route-id="@slider.Id" class="btn bg-gradient-info">Details</a>
-            <a asp-area="admin" asp-controller="slider" asp-action="update"  asp-route-id="@slider.Id" class="btn bg-gradient-warning">Update</a>
-            <a asp-area="admin" asp-controller="slider" asp-action="delete" asp-route-id="@slider.Id" class="btn bg-gradient-danger">Delete</a>
-          </td>
-          </tr>
-         }
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Title</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Sub-title</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Content</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Settings</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var slider in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex px-2">
+                                            <div>
+                                                <img src="~/assets/uploads/images/@slider.SliderImage.Image.Name" class="avatar avatar-sm rounded-circle me-2">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">@slider.Title</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">@slider.SubTitle</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">@slider.Content</p>
+                                    </td>
+                                    <td>
+                                        <a asp-area="admin" asp-controller="slider" asp-action="details" asp-route-id="@slider.Id" class="btn bg-gradient-info">Details</a>
+                                        <a asp-area="admin" asp-controller="slider" asp-action="update" asp-route-id="@slider.Id" class="btn bg-gradient-warning">Update</a>
+                                        <a asp-area="admin" asp-controller="slider" asp-action="delete" asp-route-id="@slider.Id" class="btn bg-gradient-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            }
 
-      </tbody>
-    </table>
-  </div>
-  </div>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

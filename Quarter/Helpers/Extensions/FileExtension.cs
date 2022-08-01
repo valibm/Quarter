@@ -26,6 +26,7 @@ namespace Quarter.Helpers.Extensions
 
             string path = Path.Combine(env.WebRootPath, "assets", "uploads", "images", name);
 
+
             using (FileStream fs = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(fs);

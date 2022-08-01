@@ -50,7 +50,14 @@ namespace Business.Repositories
                 };
                 productImages.Add(productImage);
             }
-            product.ProductImages = productImages;
+            await _context.ProductImages.AddRangeAsync(productImages);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Update(Product product, Image image)
+        {
+            var data = await GetForProductId(product.Id);
+            data.ImageId = image.Id;
             await _context.SaveChangesAsync();
         }
     }

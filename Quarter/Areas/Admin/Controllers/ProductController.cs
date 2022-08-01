@@ -1,8 +1,12 @@
 ﻿using Business.Services;
 using Business.ViewModels;
+using DAL.Data;
+using DAL.Identity;
 using DAL.Models;
 using Exceptions.Entity;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Quarter.Helpers.Extensions;
 using System;
@@ -14,6 +18,7 @@ namespace Quarter.Areas.Admin.Controllers
     [Area("Admin")]
     public class ProductController : Controller
     {
+
         private readonly IProductService _productService;
         private readonly IImageService _imageService;
         private readonly IWebHostEnvironment _env;
@@ -28,6 +33,8 @@ namespace Quarter.Areas.Admin.Controllers
         private readonly IFloorFeatureService _floorFeatureService;
         private readonly IProductSubCatagoryService _productSubCatagoryService;
         private readonly IPropertyTypeService _propertyTypeService;
+        private readonly ISubCatagoryService _subCatagoryService;
+        private readonly UserManager<AppUser> _userManager;
         public ProductController(IProductService productService,
                                  IImageService imageService,
                                  IWebHostEnvironment env,
@@ -41,7 +48,9 @@ namespace Quarter.Areas.Admin.Controllers
                                  IFloorPlansImageService floorPlansImageService,
                                  IFloorFeatureService floorFeatureService,
                                  IProductSubCatagoryService productSubCatagoryService,
-                                 IPropertyTypeService propertyTypeService)
+                                 IPropertyTypeService propertyTypeService,
+                                 ISubCatagoryService subCatagoryService,
+                                 UserManager<AppUser> userManager)
         {
             _productService = productService;
             _imageService = imageService;
@@ -57,15 +66,16 @@ namespace Quarter.Areas.Admin.Controllers
             _floorFeatureService = floorFeatureService;
             _productSubCatagoryService = productSubCatagoryService;
             _propertyTypeService = propertyTypeService;
+            _subCatagoryService = subCatagoryService;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
         {
             List<Product> products;
-
             try
             {
-                products = await _productService.GetAll();
+                products = await _productService.GetAllForIndex();
             }
             catch (EntityIsNullException ex)
             {
@@ -75,7 +85,6 @@ namespace Quarter.Areas.Admin.Controllers
             {
                 throw ex;
             }
-
             return View(products);
         }
 
@@ -84,7 +93,7 @@ namespace Quarter.Areas.Admin.Controllers
             Product product;
             try
             {
-                product = await _productService.Get(id);
+                product = await _productService.GetForDetails(id);
             }
             catch (ArgumentNullException ex)
             {
@@ -143,188 +152,189 @@ namespace Quarter.Areas.Admin.Controllers
 
             await _productDetailsService.Create(productDetails);
 
-            var product = await _productService.Create(productVM, productDetails);
+            ProductFeature productFeature = new ProductFeature
+            {
+                LivingRoom = productVM.LivingRoom,
+                DiningArea = productVM.DiningArea,
+                Bathroom = productVM.Bathroom,
+                Bedroom = productVM.Bedroom,
+                Garage = productVM.Garage,
+                Garden = productVM.Garden,
+                GymArea = productVM.GymArea,
+                Parking = productVM.Parking,
+            };
 
-            List<Image> images = new List<Image>();
-            for (int i = 0; i < productVM.ImageFiles.Count; i++)
+            await _productFeatureService.Create(productFeature);
+
+            productVM.AppUserId = _userManager.GetUserId(User);
+            var product = await _productService.Create(productVM, productDetails.Id, productFeature.Id);
+
+            List<Image> images = await CreateProductImage(productVM.ImageFiles);
+
+            await _productImageService.Create(product, images);
+
+            return RedirectToAction(nameof(AddCatagory), new { id = product.Id });
+        }
+        public async Task<List<Image>> CreateProductImage(List<IFormFile> images)
+        {
+            List<Image> newImages = new List<Image>();
+            for (int i = 0; i < images.Count; i++)
             {
                 if (i == 0)
                 {
-                    string fileName = await productVM.ImageFiles[i].CreateFile(_env);
+                    string fileName = await images[i].CreateFile(_env);
                     Image image = new Image
                     {
                         Name = fileName,
                         ForCard = true,
                     };
-                    images.Add(image);
+                    newImages.Add(image);
                     await _imageService.Create(image);
                 }
                 else if (i > 0 && i < 6)
                 {
-                    string fileName = await productVM.ImageFiles[i].CreateFile(_env);
+                    string fileName = await images[i].CreateFile(_env);
                     Image image = new Image
                     {
                         Name = fileName,
                         ForHeader = true
                     };
-                    images.Add(image);
+                    newImages.Add(image);
                     await _imageService.Create(image);
                 }
                 else
                 {
-                    string fileName = await productVM.ImageFiles[i].CreateFile(_env);
+                    string fileName = await images[i].CreateFile(_env);
                     Image image = new Image
                     {
                         Name = fileName,
                         ForGallery = true,
                     };
-                    images.Add(image);
+                    newImages.Add(image);
                     await _imageService.Create(image);
                 }
             }
-
-            await _productImageService.Create(product, images);
-
-            return RedirectToAction(nameof(CreateFeature));
+            return newImages;
         }
 
-        public IActionResult CreateFeature()
-        {
-            return View();
-        }
+        //public async Task<IActionResult> CreateFloorPlan(int? id)
+        //{
+        //    var product = await _productService.GetForDetails(id);
+        //    ViewData["product"] = product;
+        //    return View();
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateFeature(ProductFeature productFeature)
-        {
-            var products = await _productService.GetAll();
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> CreateFloorPlan(int id, FloorPlan floorPlan)
+        //{
+        //    var product = _productService.GetForDetails(id);
+        //    ViewData["product"] = product;
 
-            if (!ModelState.IsValid)
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(floorPlan);
+        //    }
+
+        //    if (floorPlan.ImageFile is null)
+        //    {
+        //        ModelState.AddModelError("ImageFile", "Image can not be empty");
+        //        return View(floorPlan);
+        //    }
+
+        //    floorPlan.ProductId = product.Id;
+
+        //    string fileName = await floorPlan.ImageFile.CreateFile(_env);
+
+        //    Image image = new Image
+        //    {
+        //        Name = fileName
+        //    };
+
+        //    await _floorPlanService.Create(floorPlan);
+        //    await _imageService.Create(image);
+        //    await _floorPlansImageService.Create(floorPlan, image);
+
+        //    return View();
+        //}
+
+        [HttpGet]
+        public async Task<IActionResult> AddCatagory(int? id)
+        {
+            var propertyTypes = await _propertyTypeService.GetAll();
+
+            var propertyTypeModel = new List<PropertyTypeVM>();
+            foreach (var propertyType in propertyTypes)
             {
-                return View(productFeature);
+                var propertyTypeVm = new PropertyTypeVM
+                {
+                    PropertyTypeId = propertyType.Id,
+                    PropertyTypeName = propertyType.Name,
+                    Selected = false
+                };
+                propertyTypeModel.Add(propertyTypeVm);
             }
 
-            productFeature.ProductId = products[^1].Id;
+            var amenities = await _amenityService.GetAll();
 
-            await _productFeatureService.Create(productFeature);
-
-            return View();
-        }
-
-        public IActionResult CreateFloorPlan()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateFloorPlan(FloorPlan floorPlan)
-        {
-            var products = await _productService.GetAll();
-
-            if (!ModelState.IsValid)
+            var amenityModel = new List<AmenityVM>();
+            foreach (var amenity in amenities)
             {
-                return View(floorPlan);
+                var amenityVm = new AmenityVM
+                {
+                    AmenityId = amenity.Id,
+                    AmenityName = amenity.Name,
+                    Selected = false
+                };
+                amenityModel.Add(amenityVm);
             }
 
-            if (floorPlan.ImageFile is null)
+            AmenityTypeVM model = new AmenityTypeVM
             {
-                ModelState.AddModelError("ImageFile", "Image can not be empty");
-                return View(floorPlan);
-            }
-
-            floorPlan.ProductId = products[^1].Id;
-
-            string fileName = await floorPlan.ImageFile.CreateFile(_env);
-
-            Image image = new Image
-            {
-                Name = fileName
+                AmenityVMs = amenityModel,
+                PropertyTypeVMs = propertyTypeModel,
             };
 
-            await _floorPlanService.Create(floorPlan);
-            await _imageService.Create(image);
-            await _floorPlansImageService.Create(floorPlan, image);
-
-            return View();
-        }
-
-        public async Task<IActionResult> CreateFloorFeature()
-        {
-            var floorPlans = await _floorPlanService.GetAll();
-            ViewData["floorPlans"] = floorPlans;
-            return View();
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateFloorFeature(FloorFeature floorFeature)
+        public async Task<IActionResult> AddCatagory(int id, AmenityTypeVM amenityTypeVm)
         {
-            var floorPlans = await _floorPlanService.GetAll();
-            ViewData["floorPlans"] = floorPlans;
+            var product = await _productService.GetForDetails(id);
 
-            if (!ModelState.IsValid)
+            List<ProductSubCatagory> productSubCatagories = new List<ProductSubCatagory>();
+
+            foreach (var amenityVM in amenityTypeVm.AmenityVMs)
             {
-                return View(floorFeature);
+                if (amenityVM.Selected)
+                {
+                    ProductSubCatagory productSubCatagory = new ProductSubCatagory
+                    {
+                        ProductId = product.Id,
+                        SubCatagoryId = amenityVM.AmenityId
+                    };
+
+                    productSubCatagories.Add(productSubCatagory);
+                }
             }
 
-            await _floorFeatureService.Create(floorFeature);
-
-            return View();
-        }
-
-        public async Task<IActionResult> AddAmenity()
-        {
-            var amenities = await _amenityService.GetAll();
-            ViewData["amenities"] = amenities;
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddAmenity(ProductSubCatagory productSubCatagory)
-        {
-            var amenities = await _amenityService.GetAll();
-            ViewData["amenities"] = amenities;
-
-            var products = await _productService.GetAll();
-
-            if (!ModelState.IsValid)
+            foreach (var propertyTypeVm in amenityTypeVm.PropertyTypeVMs)
             {
-                return View(productSubCatagory);
+                if (propertyTypeVm.Selected)
+                {
+                    ProductSubCatagory productSubCatagory = new ProductSubCatagory
+                    {
+                        ProductId = product.Id,
+                        SubCatagoryId = propertyTypeVm.PropertyTypeId
+                    };
+
+                    productSubCatagories.Add(productSubCatagory);
+                }
             }
 
-            productSubCatagory.ProductId = products[^1].Id;
-
-            await _productSubCatagoryService.Create(productSubCatagory);
-
-            return View();
-        }
-
-        public async Task<IActionResult> AddPropertyType()
-        {
-            var propertyTypes = await _propertyTypeService.GetAll();
-            ViewData["propertyTypes"] = propertyTypes;
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddPropertyType(ProductSubCatagory productSubCatagory)
-        {
-            var propertyTypes = await _propertyTypeService.GetAll();
-            ViewData["propertyTypes"] = propertyTypes;
-
-            var products = await _productService.GetAll();
-
-            if (!ModelState.IsValid)
-            {
-                return View(productSubCatagory);
-            }
-
-            productSubCatagory.ProductId = products[^1].Id;
-
-            await _productSubCatagoryService.Create(productSubCatagory);
+            await _productSubCatagoryService.CreateMultiple(productSubCatagories);
 
             return RedirectToAction(nameof(Index));
         }
@@ -332,6 +342,11 @@ namespace Quarter.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int? id)
         {
+            var areas = await _areaService.GetAll();
+            ViewData["areas"] = areas;
+            var productStatuses = await _productStatusService.GetAll();
+            ViewData["productStatuses"] = productStatuses;
+
             Product product;
             try
             {
@@ -355,22 +370,27 @@ namespace Quarter.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int id, Service service)
+        public async Task<IActionResult> Update(int id, Product product)
         {
+            var areas = await _areaService.GetAll();
+            ViewData["areas"] = areas;
+            var productStatuses = await _productStatusService.GetAll();
+            ViewData["productStatuses"] = productStatuses;
+
             if (!ModelState.IsValid)
             {
-                return View(service);
+                return View(product);
             }
 
-            var data = await _serviceService.Get(id);
+            var data = await _productService.Get(id);
 
-            if (service.CardFile != null)
+            if (product.CardFile != null)
             {
-                foreach (var serviceImage in data.ServiceImages)
+                foreach (var productImage in data.ProductImages)
                 {
-                    if (serviceImage.Image.ForCard == true)
+                    if (productImage.Image.ForCard == true)
                     {
-                        string fileName = await service.CardFile.CreateFile(_env);
+                        string fileName = await product.CardFile.CreateFile(_env);
 
                         Image image = new Image
                         {
@@ -380,72 +400,50 @@ namespace Quarter.Areas.Admin.Controllers
 
                         await _imageService.Create(image);
 
-                        int oldImageId = serviceImage.ImageId;
+                        int oldImageId = productImage.ImageId;
 
-                        await _serviceImageService.Update(service, image);
-                        await _serviceService.Update(id, service);
+                        await _productImageService.Update(product, image);
+                        await _productService.Update(id, product);
                         await _imageService.Delete(oldImageId);
                     }
                 }
             }
 
-            if (service.HeaderFile != null)
+            if (product.HeaderFiles != null)
             {
-                foreach (var serviceImage in data.ServiceImages)
+                foreach (var headerFile in product.HeaderFiles)
                 {
-                    if (serviceImage.Image.ForHeader == true)
+                    foreach (var productImage in data.ProductImages)
                     {
-                        string fileName = await service.HeaderFile.CreateFile(_env);
-
-                        Image image = new Image
+                        if (productImage.Image.ForHeader == true)
                         {
-                            Name = fileName,
-                            ForHeader = true
-                        };
+                            string fileName = await headerFile.CreateFile(_env);
 
-                        await _imageService.Create(image);
+                            Image image = new Image
+                            {
+                                Name = fileName,
+                                ForHeader = true
+                            };
 
-                        int oldImageId = serviceImage.ImageId;
+                            await _imageService.Create(image);
 
-                        await _serviceImageService.Update(service, image);
-                        await _serviceService.Update(id, service);
-                        await _imageService.Delete(oldImageId);
+                            int oldImageId = productImage.ImageId;
+
+                            await _productImageService.Update(product, image);
+                            await _productService.Update(id, product);
+                            await _imageService.Delete(oldImageId);
+                        }
                     }
                 }
             }
 
-            if (service.BannerFile != null)
+            if (product.ImageFiles != null)
             {
-                foreach (var serviceImage in data.ServiceImages)
+                foreach (var imageFile in product.ImageFiles)
                 {
-                    if (serviceImage.Image.ForBanner == true)
+                    foreach (var productImage in data.ProductImages)
                     {
-                        string fileName = await service.BannerFile.CreateFile(_env);
-
-                        Image image = new Image
-                        {
-                            Name = fileName,
-                            ForBanner = true
-                        };
-
-                        await _imageService.Create(image);
-
-                        int oldImageId = serviceImage.ImageId;
-
-                        await _serviceImageService.Update(service, image);
-                        await _serviceService.Update(id, service);
-                        await _imageService.Delete(oldImageId);
-                    }
-                }
-            }
-
-            if (service.ImageFiles != null)
-            {
-                foreach (var imageFile in service.ImageFiles)
-                {
-                    foreach (var serviceImage in data.ServiceImages)
-                    {
-                        if (serviceImage.Image.ForGallery == true)
+                        if (productImage.Image.ForGallery == true)
                         {
                             string fileName = await imageFile.CreateFile(_env);
 
@@ -457,17 +455,39 @@ namespace Quarter.Areas.Admin.Controllers
 
                             await _imageService.Create(image);
 
-                            int oldImageId = serviceImage.ImageId;
+                            int oldImageId = productImage.ImageId;
 
-                            await _serviceImageService.Update(service, image);
-                            await _serviceService.Update(id, service);
+                            await _productImageService.Update(product, image);
+                            await _productService.Update(id, product);
                             await _imageService.Delete(oldImageId);
                         }
                     }
                 }
             }
 
-            await _serviceService.Update(id, service);
+            await _productService.Update(id, product);
+
+            return View();
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            try
+            {
+                await _productService.Delete(id);
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw ex;
+            }
+            catch (EntityIsNullException ex)
+            {
+                throw ex;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
             return RedirectToAction(nameof(Index));
         }

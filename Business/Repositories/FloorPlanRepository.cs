@@ -26,7 +26,6 @@ namespace Business.Repositories
             }
 
             var data = await _context.FloorPlans.Where(n => n.Id == id)
-                                                .Include(n => n.FloorFeatures)
                                                 .Include(n => n.FloorPlansImage)
                                                 .Include(n => n.Product)
                                                 .FirstOrDefaultAsync();             
@@ -41,8 +40,7 @@ namespace Business.Repositories
 
         public async Task<List<FloorPlan>> GetAll()
         {
-            var data = await _context.FloorPlans.Include(n => n.FloorFeatures)
-                                                .Include(n => n.FloorPlansImage)
+            var data = await _context.FloorPlans.Include(n => n.FloorPlansImage)
                                                 .Include(n => n.Product)
                                                 .ToListAsync();
 
@@ -59,5 +57,6 @@ namespace Business.Repositories
             await _context.FloorPlans.AddAsync(floorPlan);
             await _context.SaveChangesAsync();
         }
+
     }
 }

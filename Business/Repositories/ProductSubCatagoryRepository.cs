@@ -21,5 +21,11 @@ namespace Business.Repositories
             await _context.ProductSubCatagories.AddAsync(productSubCatagory);
             await _context.SaveChangesAsync();
         }
+
+        public async Task CreateMultiple(List<ProductSubCatagory> productSubCatagories)
+        {
+            await _context.ProductSubCatagories.AddRangeAsync(productSubCatagories);
+            await _context.SaveChangesAsync();
+        }
     }
 }

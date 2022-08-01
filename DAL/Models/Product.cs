@@ -1,8 +1,10 @@
 ﻿using DAL.Base;
 using DAL.Entity;
+using DAL.Identity;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
@@ -18,8 +20,10 @@ namespace DAL.Models
         public int AreaId { get; set; }
         public Area Area { get; set; }
 
+        public int ProductFeatureId { get; set; }
+        public ProductFeature ProductFeature { get; set; }
+
         public List<ProductImage> ProductImages { get; set; }
-        public List<ProductFeature> ProductFeatures { get; set; }
         public List<ProductSubCatagory> ProductSubCatagories { get; set; }
 
         public int ProductDetailsId { get; set; }
@@ -31,6 +35,13 @@ namespace DAL.Models
         public ProductStatus ProductStatus { get; set; }
 
         [NotMapped]
-        public IFormFile ImageFiles { get; set; }
+        public List<IFormFile> ImageFiles { get; set; }
+        [NotMapped]
+        public IFormFile CardFile { get; set; }
+        [NotMapped]
+        public List<IFormFile> HeaderFiles { get; set; }
+
+        public string AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }

@@ -1,0 +1,45 @@
+﻿@model Location
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="d-flex justify-content-between mt-5 mb-3">
+                <a asp-area="admin" asp-controller="dashboard" asp-action="index" class="btn bg-gradient-secondary">Go Back</a>
+                <a asp-area="admin" asp-controller="location" asp-action="create" class="btn bg-gradient-success">Create</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Country</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">City</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Settings</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">@Model.Country</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">@Model.City</p>
+                                    </td>
+                                    <td>
+                                        <a asp-area="admin" asp-controller="location" asp-action="update" asp-route-id="@Model.Id" class="btn bg-gradient-warning">Update</a>
+                                        <a asp-area="admin" asp-controller="location" asp-action="delete" asp-route-id="@Model.Id" class="btn bg-gradient-danger">Delete</a>
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

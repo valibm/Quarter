@@ -11,5 +11,6 @@ namespace Business.Services
         public Task<ProductDetails> Get(int? id);
         public Task<List<ProductDetails>> GetAll();
         public Task Create(ProductDetails productDetails);
+        public Task Update(int id, ProductDetails productDetails);
     }
 }

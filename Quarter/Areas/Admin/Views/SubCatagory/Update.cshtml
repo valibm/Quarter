@@ -1,0 +1,34 @@
+﻿@model SubCatagory
+
+@{
+    List<Catagory> catagories = (List<Catagory>)ViewData["catagories"];
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-2">Create - SubCatagory</h4>
+                    <form method="post" class="forms-sample">
+                        <div class="form-group">
+                            <label asp-for="Name">Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CatagoryId">Catagory</label>
+                            <select asp-for="CatagoryId" class="form-control form-control-lg">
+                                @foreach (var catagory in catagories)
+                                {
+                                    <option value="@catagory.Id">@catagory.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success mr-2">Update</button>
+                        <button asp-controller="subcatagory" asp-action="index" class="btn btn-outline-dark">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

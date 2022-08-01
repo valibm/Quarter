@@ -27,7 +27,6 @@ namespace Business.Repositories
             }
 
             var data = await _context.ProductFeatures.Where(n => n.Id == id)
-                                                     .Include(n => n.Product)
                                                      .FirstOrDefaultAsync();
 
             if (data is null)
@@ -40,8 +39,7 @@ namespace Business.Repositories
 
         public async Task<List<ProductFeature>> GetAll()
         {
-            var data = await _context.ProductFeatures.Include(n => n.Product)
-                                                     .ToListAsync();
+            var data = await _context.ProductFeatures.ToListAsync();
 
             if (data is null)
             {

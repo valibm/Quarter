@@ -1,8 +1,15 @@
-﻿using Business.ViewModels;
+﻿using Business.Services;
+using Business.ViewModels;
+using DAL.Data;
 using DAL.Identity;
+using DAL.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Quarter.Helpers.Extensions;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using static Utilities.Helpers.Enums;
 
@@ -13,14 +20,23 @@ namespace Quarter.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _env;
+        private readonly IImageService _imageService;
 
         public AccountController(UserManager<AppUser> userManager,
                                  RoleManager<IdentityRole> roleManager,
-                                 SignInManager<AppUser> signInManager)
+                                 SignInManager<AppUser> signInManager,
+                                 AppDbContext context,
+                                 IImageService imageService,
+                                 IWebHostEnvironment env)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _context = context;
+            _imageService = imageService;
+            _env = env;
         }
 
         [HttpGet(nameof(Register))]
@@ -140,18 +156,95 @@ namespace Quarter.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> AccountDetails()
+        public async Task<IActionResult> Profile()
         {
-            var appUser = await _userManager.GetUserAsync(HttpContext.User);
-            return View();
+            //var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            var userID = _userManager.GetUserId(User);
+            var appUser = await _context.Users.Where(n => n.Id == userID)
+                                              .Include(n => n.Image)
+                                              .FirstOrDefaultAsync();
+
+            return View(appUser);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AccountDetails(AccountDetailsVM accountDetailsVM)
+        public async Task<IActionResult> Profile(AppUser appUser)
         {
-            var appUser = await _userManager.GetUserAsync(HttpContext.User);
-            return View();
+            //var newAppUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            var userID = _userManager.GetUserId(User);
+            var newAppUser = await _context.Users.Where(n => n.Id == userID)
+                                              .Include(n => n.Image)
+                                              .FirstOrDefaultAsync();
+            newAppUser.Information = appUser.Information;
+            string fileName = await appUser.ImageFile.CreateFile(_env);
+
+            Image image = new Image
+            {
+                Name = fileName,
+            };
+            await _imageService.Create(image);
+            newAppUser.ImageId = image.Id;
+            await _context.SaveChangesAsync();
+            return View(newAppUser);
         }
+
+        public async Task<IActionResult> UpdateProfile()
+        {
+            //var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            var userID = _userManager.GetUserId(User);
+            var appUser = await _context.Users.Where(n => n.Id == userID)
+                                              .Include(n => n.Image)
+                                              .FirstOrDefaultAsync();
+
+            return View(appUser);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateProfile(AppUser appUser)
+        {
+            //var newAppUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            var userID = _userManager.GetUserId(User);
+            var newAppUser = await _context.Users.Where(n => n.Id == userID)
+                                              .Include(n => n.Image)
+                                              .FirstOrDefaultAsync();
+            newAppUser.Information = appUser.Information;
+            string fileName = await appUser.ImageFile.CreateFile(_env);
+
+            Image image = new Image
+            {
+                Name = fileName,
+            };
+            await _imageService.Create(image);
+
+            int? oldImageId = newAppUser.ImageId;
+            await _imageService.Delete(oldImageId);
+
+            newAppUser.ImageId = image.Id;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Profile));
+        }
+
+        //public async Task<IActionResult> AccountDetails()
+        //{
+        //    var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+        //    return View(appUser);
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> AddAccountDetails(AccountDetailsVM accountDetailsVM)
+        //{
+        //    var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+        //    appUser.Information = accountDetailsVM.Information;
+        //    appUser.SubInformation = accountDetailsVM.SubInformation;
+        //    appUser.Experience = accountDetailsVM.Experience;
+        //    appUser.PracticeArea = accountDetailsVM.PracticeArea;
+        //    appUser.Location = accountDetailsVM.Location;
+        //    appUser.PositionId = accountDetailsVM.PositionId;
+        //    appUser.FacebookLink = accountDetailsVM.FacebookLink;
+        //    appUser.LinkedInLink = accountDetailsVM.LinkedInLink;
+        //    appUser.TwitterLink = accountDetailsVM.TwitterLink;
+        //    return View();
+        //}
     }
 }

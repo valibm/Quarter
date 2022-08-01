@@ -1,0 +1,25 @@
+﻿@model Location
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-2">Create - Location</h4>
+                    <form method="post" class="forms-sample">
+                        <div class="form-group">
+                            <label asp-for="Country">Country</label>
+                            <input asp-for="Country" class="form-control" placeholder="Country">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="City">Name</label>
+                            <input asp-for="City" class="form-control" placeholder="City">
+                        </div>
+                        <button type="submit" class="btn btn-outline-success mr-2">Submit</button>
+                        <button asp-controller="location" asp-action="index" class="btn btn-outline-dark">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

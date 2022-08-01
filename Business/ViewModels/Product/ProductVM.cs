@@ -24,11 +24,20 @@ namespace Business.ViewModels
         public int Beds { get; set; }
         public double Price { get; set; }
 
-        public string FeatureName { get; set; }
-        public double FeatureSize { get; set; }
+        public double LivingRoom { get; set; }
+        public double Garage { get; set; }
+        public double DiningArea { get; set; }
+        public double Bedroom { get; set; }
+        public double Bathroom { get; set; }
+        public double GymArea { get; set; }
+        public double Garden { get; set; }
+        public double Parking { get; set; }
 
         public List<IFormFile> ImageFiles { get; set; }
 
         public int AmenityId { get; set; }
+
+        public List<FloorPlan> FloorPlans { get; set; }
+        public string AppUserId { get; set; }
     }
 }
