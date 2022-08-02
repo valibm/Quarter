@@ -105,5 +105,12 @@ namespace Business.Repositories
             comment.IsAllowed = true;
             await _context.SaveChangesAsync();
         }
+
+        public async Task Delete(int? id)
+        {
+            var comment = await GetForManaging(id);
+            _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync();
+        }
     }
 }

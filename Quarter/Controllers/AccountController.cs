@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Quarter.Helpers.Extensions;
 using System;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using static Utilities.Helpers.Enums;
 
@@ -82,7 +84,58 @@ namespace Quarter.Controllers
                 return View(registerVm);
             }
 
-            return RedirectToAction("Index", controllerName: "Home");
+            return await EmailConfirmation(appUser);
+        }
+
+        public async Task<IActionResult> ConfirmEmail(string userName, string token)
+        {
+            var appUser = await _userManager.FindByNameAsync(userName);
+            if (appUser is null)
+            {
+                return Json("user not found");
+            }
+            await _userManager.ConfirmEmailAsync(appUser, token);
+            return RedirectToAction("index", controllerName: "Home");
+        }
+
+        public async Task<IActionResult> EmailConfirmation(AppUser appUser)
+        {
+            string token = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
+            string redirectionLink = Url.Action(nameof(ConfirmEmail), controller: "Account", new { userName = appUser.UserName, token = token }, protocol: HttpContext.Request.Scheme);
+            string linkTag = $"<a href=\"{redirectionLink}\">Click here to confirm your email</a>";
+            await SendEmail(linkTag, appUser.Email);
+            return Json("please check your email to confirm you email.");
+        }
+
+        public async Task<IActionResult> SendEmail(string htmlTag, string userMail)
+        {
+            string from = "valibm@code.edu.az";
+            string to = userMail;
+            string subject = "Quarter Email Confirmation";
+            string body = htmlTag;
+            MailMessage message = new MailMessage(from, to, subject, body);
+            message.BodyEncoding = System.Text.Encoding.UTF8;
+            message.IsBodyHtml = true;
+
+
+            NetworkCredential credential = new NetworkCredential(from, "arnodorian002");
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            client.Credentials = credential;
+
+
+            try
+            {
+                await client.SendMailAsync(message);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return Json("ok");
+
         }
 
         [HttpGet(nameof(Login))]
@@ -129,7 +182,7 @@ namespace Quarter.Controllers
 
             if (await _userManager.IsInRoleAsync(appUser, Roles.Admin.ToString()))
             {
-                return RedirectToAction("Index", controllerName: "Dashboard", new { Areas = "Admin" });
+                return RedirectToAction("Index", "Dashboard", new { area = "admin" });
             }
 
             return RedirectToAction("Index", controllerName: "Home");
@@ -143,17 +196,6 @@ namespace Quarter.Controllers
             }
 
             return RedirectToAction("Index", controllerName: "Home");
-        }
-
-        public async Task CreateRoles()
-        {
-            foreach (var role in Enum.GetValues(typeof(Roles)))
-            {
-                if (!await _roleManager.RoleExistsAsync(role.ToString()))
-                {
-                    await _roleManager.CreateAsync(new IdentityRole(role.ToString()));
-                }
-            }
         }
 
         public async Task<IActionResult> Profile()
@@ -224,27 +266,5 @@ namespace Quarter.Controllers
 
             return RedirectToAction(nameof(Profile));
         }
-
-        //public async Task<IActionResult> AccountDetails()
-        //{
-        //    var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
-        //    return View(appUser);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddAccountDetails(AccountDetailsVM accountDetailsVM)
-        //{
-        //    var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
-        //    appUser.Information = accountDetailsVM.Information;
-        //    appUser.SubInformation = accountDetailsVM.SubInformation;
-        //    appUser.Experience = accountDetailsVM.Experience;
-        //    appUser.PracticeArea = accountDetailsVM.PracticeArea;
-        //    appUser.Location = accountDetailsVM.Location;
-        //    appUser.PositionId = accountDetailsVM.PositionId;
-        //    appUser.FacebookLink = accountDetailsVM.FacebookLink;
-        //    appUser.LinkedInLink = accountDetailsVM.LinkedInLink;
-        //    appUser.TwitterLink = accountDetailsVM.TwitterLink;
-        //    return View();
-        //}
     }
 }

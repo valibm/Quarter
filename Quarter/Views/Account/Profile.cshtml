@@ -54,6 +54,7 @@
                                     @if (Model.Information == null)
                                     {
                                         <div class="col-lg-12 mt-20">
+                                            <div asp-validation-summary="All" class="text-danger"></div>
                                             <form enctype="multipart/form-data" method="post">
                                                 <label asp-for="Information">Information</label>
                                                 <input asp-for="Information" placeholder="Information">

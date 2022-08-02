@@ -1,6 +1,7 @@
 ﻿using Business.ViewModels;
 using DAL.Data;
 using DAL.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 namespace Quarter.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class UserManagerController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

@@ -1,6 +1,7 @@
 ﻿using Business.Services;
 using DAL.Models;
 using Exceptions.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace Quarter.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class CatagoryController : Controller
     {
         private readonly ICatagoryService _catagoryService;

@@ -2,6 +2,7 @@
 using DAL.Identity;
 using DAL.Models;
 using Exceptions.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace Quarter.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class AreaController : Controller
     {
         private readonly IAreaService _areaService;

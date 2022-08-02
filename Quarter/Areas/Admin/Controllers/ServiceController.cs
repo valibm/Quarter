@@ -1,6 +1,7 @@
 ﻿using Business.Services;
 using DAL.Models;
 using Exceptions.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Quarter.Helpers.Extensions;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 namespace Quarter.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class ServiceController : Controller
     {
         private readonly IServiceService _serviceService;

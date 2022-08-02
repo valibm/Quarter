@@ -3,6 +3,7 @@ using Business.ViewModels;
 using DAL.Identity;
 using DAL.Models;
 using Exceptions.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 namespace Quarter.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class BlogController : Controller
     {
         private readonly IBlogService _blogService;

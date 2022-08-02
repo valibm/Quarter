@@ -13,6 +13,7 @@ namespace Business.Services
         public Task<Comment> GetForManaging(int? id);
         public Task<List<Comment>> GetForBlog(int? id);
         public Task<List<Comment>> GetForProduct(int? id);
+        public Task Delete(int? id);
         public Task Allow(int? id);
     }
 }

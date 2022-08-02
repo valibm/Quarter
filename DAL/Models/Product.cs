@@ -12,9 +12,13 @@ namespace DAL.Models
 {
     public class Product : BaseEntity, IEntity
     {
+        [Required, MinLength(3), MaxLength(50)]
         public string Title { get; set; }
+        [Required, MinLength(3), MaxLength(50)]
         public string Description { get; set; }
+        [Required, MinLength(3), MaxLength(50)]
         public string SubDescription { get; set; }
+        [DataType(DataType.Url)]
         public string VideoLink { get; set; }
 
         public int AreaId { get; set; }

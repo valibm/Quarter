@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 namespace Quarter.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles ="SuperAdmin,Admin")]
     public class DashboardController : Controller
     {
         private readonly ICommentService _commentService;
@@ -24,6 +25,13 @@ namespace Quarter.Areas.Admin.Controllers
         public async Task<IActionResult> ManageComment(int id)
         {
             await _commentService.Allow(id);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> RemoveComment(int? id)
+        {
+            await _commentService.Delete(id);
 
             return RedirectToAction(nameof(Index));
         }
